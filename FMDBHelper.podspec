@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { "lijingcheng" => "bj_lijingcheng@163.com" }
   s.source           = { :git => "https://github.com/lijingcheng/FMDBHelper.git", :tag => s.version.to_s }
-  s.social_media_url = 'https://weibo.com/lijingcheng1984'
+  s.social_media_url = 'http://weibo.com/lijingcheng1984'
   s.requires_arc = true
   s.source_files = 'Pod/Classes/**/*'
   s.resource_bundles = {
