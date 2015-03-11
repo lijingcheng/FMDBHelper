@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "FMDBHelper"
-  s.version          = "1.0.0"
+  s.version          = "0.0.1"
   s.summary          = "Let FMDB insert/update/delete/select becomes a little bit more simple."
   s.homepage         = "http://lijingcheng.github.io/"
   s.license          = 'MIT'
@@ -21,5 +21,5 @@ Pod::Spec.new do |s|
   s.resource_bundles = {
     'FMDBHelper' => ['Pod/Assets/*.png']
   }
-  # s.public_header_files = 'Pod/Classes/**/*.h'
+  s.dependency 'FMDB', '2.5'
 end

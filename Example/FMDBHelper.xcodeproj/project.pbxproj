@@ -144,8 +144,8 @@
 		6003F594195388D20070C39A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				6003F5A8195388D20070C39A /* Images.xcassets */,
 				F3FC5DF71AAFEE7F002EE5B4 /* demo.db */,
+				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F59F195388D20070C39A /* Main_iPhone.storyboard */,
 				6003F59B195388D20070C39A /* FMDBHelper-Prefix.pch */,
 				6003F595195388D20070C39A /* FMDBHelper-Info.plist */,
