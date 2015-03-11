@@ -1,0 +1,24 @@
+PODS:
+  - FMDB (2.5):
+    - FMDB/standard (= 2.5)
+  - FMDB/common (2.5)
+  - FMDB/standard (2.5):
+    - FMDB/common
+  - FMDBHelper (0.1.0)
+  - Kiwi (2.3.1)
+
+DEPENDENCIES:
+  - FMDB (= 2.5)
+  - FMDBHelper (from `../`)
+  - Kiwi
+
+EXTERNAL SOURCES:
+  FMDBHelper:
+    :path: ../
+
+SPEC CHECKSUMS:
+  FMDB: 0efa188cf0dd1ce82c27a478cd5f5fa245308677
+  FMDBHelper: 72c5d7c19948486e039627b9c73cfd078bb51a26
+  Kiwi: 73e1400209055ee9c8ba78c6012b6b642d0fb9f7
+
+COCOAPODS: 0.35.0
