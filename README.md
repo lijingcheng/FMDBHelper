@@ -1,5 +1,5 @@
 # FMDBHelper
-
+[![Build Status](https://travis-ci.org/lijingcheng/FMDBHelper.png)](https://travis-ci.org/lijingcheng/FMDBHelper)
 [![CI Status](http://img.shields.io/travis/lijingcheng/FMDBHelper.svg?style=flat)](https://travis-ci.org/lijingcheng/FMDBHelper)
 [![Version](https://img.shields.io/cocoapods/v/FMDBHelper.svg?style=flat)](http://cocoadocs.org/docsets/FMDBHelper)
 [![License](https://img.shields.io/cocoapods/l/FMDBHelper.svg?style=flat)](http://cocoadocs.org/docsets/FMDBHelper)
