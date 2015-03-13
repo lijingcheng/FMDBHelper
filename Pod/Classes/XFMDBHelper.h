@@ -50,12 +50,14 @@
 + (BOOL)update:(NSString *)sql;
 
 /**
- *  更新数据(默认的where条件是id=?，所以keyValues参数要包括id)
+ *  更新数据
  *
  *  @param table         要更新的表
  *  @param keyValues     要更新的字段名和值
  *
  *  @return YES: 执行成功, NO: 执行失败
+ *
+ *  @warning 默认的where条件是id=?，所以keyValues参数要包括id
  */
 + (BOOL)update:(NSString *)table keyValues:(NSDictionary *)keyValues;
 
