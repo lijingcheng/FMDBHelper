@@ -65,7 +65,7 @@ static NSString * const kId = @"id";
 
 + (BOOL)update:(NSString *)table keyValues:(NSDictionary *)keyValues
 {
-    return [self update:table keyValues:keyValues where:[NSString stringWithFormat:@"%@=%@", kId, keyValues[kId]]];
+    return [self update:table keyValues:keyValues where:[NSString stringWithFormat:@"%@='%@'", kId, keyValues[kId]]];
 }
 
 + (BOOL)update:(NSString *)table keyValues:(NSDictionary *)keyValues where:(NSString *)where
@@ -94,7 +94,7 @@ static NSString * const kId = @"id";
 
 + (BOOL)removeById:(NSString *)id_ from:(NSString *)table
 {
-    return [self remove:table where:[NSString stringWithFormat:@"%@=%@", kId, id_]];
+    return [self remove:table where:[NSString stringWithFormat:@"%@='%@'", kId, id_]];
 }
 
 + (BOOL)remove:(NSString *)table where:(NSString *)where
@@ -116,12 +116,7 @@ static NSString * const kId = @"id";
 {
     NSMutableArray *result = [self query:table where:[NSString stringWithFormat:@"%@=?", kId], id_, nil];
     
-    if ([result count] > 0) {
-        return [result firstObject];
-    }
-    else {
-        return nil;
-    }
+    return (result.count > 0) ? result.firstObject : nil;
 }
 
 + (NSMutableArray *)query:(NSString *)table where:(NSString *)where, ...

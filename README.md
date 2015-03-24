@@ -6,13 +6,14 @@
 
 Let FMDB insert/update/delete/select becomes a little bit more simple.
 
-## Usage
-
-Need to modify the "XFMDBHelper" class "kDBName" constants, the rest is simple ~
-
 ## Installation
 
-`pod "FMDBHelper"`
+pod "FMDBHelper", "0.0.2"
+
+## Usage
+
+- #import "XFMDBHelper.h"
+- modify the "XFMDBHelper" class's "kDBName" constants
 
 ## Author
 
