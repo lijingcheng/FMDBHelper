@@ -11,5 +11,4 @@ language: objective-c
 install:
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 script:
-- set -o pipefail && xcodebuild test -workspace Example/FMDBHelper.xcworkspace -scheme FMDBHelper-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty -c
-- pod lib lint --quick
+    - "xctool -workspace Example/FMDBHelper.xcworkspace -scheme FMDBHelper-Example -sdk iphonesimulator7.0 -destination 'platform=iOS Simulator,name=iPhone 5,OS=7.0' build test"
