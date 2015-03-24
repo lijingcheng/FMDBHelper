@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "FMDBHelper"
-  s.version          = "0.0.2"
+  s.version          = "0.0.3"
   s.summary          = "Let FMDB insert/update/delete/select becomes a little bit more simple."
   s.homepage         = "http://lijingcheng.github.io/"
   s.license          = 'MIT'
@@ -21,6 +21,6 @@ Pod::Spec.new do |s|
   s.resource_bundles = {
     'FMDBHelper' => ['Pod/Assets/*.png']
   }
-  s.platform     = :ios
+  s.platform     = :ios, "6.0"
   s.dependency 'FMDB', '2.5'
 end
