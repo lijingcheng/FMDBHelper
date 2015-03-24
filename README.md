@@ -8,7 +8,7 @@ Let FMDB insert/update/delete/select becomes a little bit more simple.
 
 ## Installation
 
-pod "FMDBHelper", "0.0.2"
+pod "FMDBHelper", "0.0.3"
 
 ## Usage
 
