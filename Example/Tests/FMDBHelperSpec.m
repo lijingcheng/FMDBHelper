@@ -129,7 +129,7 @@ describe(@"FMDBHelper", ^{
         
         it(@"totalRowOfTable:", ^{
             NSInteger totalRow = [XFMDBHelper totalRowOfTable:tableName];
-            NSLog(@"%ld",totalRow);
+            
             [[theValue(totalRow) should] equal:theValue(3)];
         });
         
