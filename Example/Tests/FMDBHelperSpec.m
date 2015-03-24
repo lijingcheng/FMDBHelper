@@ -10,7 +10,7 @@
 
 SPEC_BEGIN(FMDBHelperSpec)
 
-//表结构:CREATE TABLE user (id text PRIMARY KEY,username text,age text,birthday text)
+//Table structure:CREATE TABLE user (id text PRIMARY KEY,username text,age text,birthday text)
 
 describe(@"FMDBHelper", ^{
     NSString *tableName = @"user";

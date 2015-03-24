@@ -21,5 +21,6 @@ Pod::Spec.new do |s|
   s.resource_bundles = {
     'FMDBHelper' => ['Pod/Assets/*.png']
   }
+  s.platform     = :ios
   s.dependency 'FMDB', '2.5'
 end
