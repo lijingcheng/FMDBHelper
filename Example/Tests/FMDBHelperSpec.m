@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 lijingcheng. All rights reserved.
 //
 
-#import "XFMDBHelper.h"
+#import "FMDBHelper.h"
 
 SPEC_BEGIN(FMDBHelperSpec)
 
@@ -27,19 +27,19 @@ describe(@"FMDBHelper", ^{
         
         it(@"insert:", ^{
             NSString *sql = @"INSERT OR REPLACE INTO user (id,username,age,birthday) VALUES ('id1','zhangsan','20','1995-03-22')";
-            BOOL result = [XFMDBHelper insert:sql];
+            BOOL result = [FMDBHelper insert:sql];
             
             [[theValue(result) should] beYes];
         });
         
         it(@"insert:keyValues:", ^{
-            BOOL result = [XFMDBHelper insert:tableName keyValues:keyValues];
+            BOOL result = [FMDBHelper insert:tableName keyValues:keyValues];
             
             [[theValue(result) should] beYes];
         });
         
         it(@"insert:keyValues:replace:", ^{
-            BOOL result = [XFMDBHelper insert:tableName keyValues:keyValues replace:NO];
+            BOOL result = [FMDBHelper insert:tableName keyValues:keyValues replace:NO];
             
             [[theValue(result) should] beNo];
         });
@@ -48,20 +48,20 @@ describe(@"FMDBHelper", ^{
     context(@"update", ^{
         it(@"update:", ^{
             NSString *sql = @"update user set username='lisi' where id='id1'";
-            BOOL result = [XFMDBHelper update:sql];
+            BOOL result = [FMDBHelper update:sql];
             
             [[theValue(result) should] beYes];
         });
         
         it(@"update:keyValues:", ^{
             NSDictionary *keyValues = @{@"id": @"id2", @"username": @"zhangsan", @"age": @"21", @"birthday": @"1994-03-21"};
-            BOOL result = [XFMDBHelper update:tableName keyValues:keyValues];
+            BOOL result = [FMDBHelper update:tableName keyValues:keyValues];
             
             [[theValue(result) should] beYes];
         });
         
         it(@"update:keyValues:where:", ^{
-            BOOL result = [XFMDBHelper update:tableName keyValues:@{@"username": @"wangwu"} where:@"username='haha'"];
+            BOOL result = [FMDBHelper update:tableName keyValues:@{@"username": @"wangwu"} where:@"username='haha'"];
             
             [[theValue(result) should] beYes];
         });
@@ -69,19 +69,19 @@ describe(@"FMDBHelper", ^{
     
     context(@"delete", ^{
         it(@"removeById:from:", ^{
-            BOOL result = [XFMDBHelper removeById:@"id2" from:tableName];
+            BOOL result = [FMDBHelper removeById:@"id2" from:tableName];
 
             [[theValue(result) should] beYes];
         });
         
         it(@"remove:where", ^{
-            BOOL result = [XFMDBHelper remove:tableName where:@"username='zhaoliu'"];
+            BOOL result = [FMDBHelper remove:tableName where:@"username='zhaoliu'"];
             
             [[theValue(result) should] beYes];
         });
         
         it(@"remove:", ^{
-            BOOL result = [XFMDBHelper remove:tableName];
+            BOOL result = [FMDBHelper remove:tableName];
             
             [[theValue(result) should] beYes];
         });
@@ -96,13 +96,13 @@ describe(@"FMDBHelper", ^{
         NSString *sql6 = @"remove from user where id='id3'";
         
         it(@"executeBatch:useTransaction:(YES)", ^{
-            BOOL result = [XFMDBHelper executeBatch:@[sql1, sql2, sql3, sql4, sql5, sql6] useTransaction:YES];
+            BOOL result = [FMDBHelper executeBatch:@[sql1, sql2, sql3, sql4, sql5, sql6] useTransaction:YES];
             
             [[theValue(result) should] beNo];
         });
         
         it(@"executeBatch:useTransaction:(NO)", ^{
-            BOOL result = [XFMDBHelper executeBatch:@[sql1, sql2, sql3, sql4, sql5, sql6] useTransaction:NO];
+            BOOL result = [FMDBHelper executeBatch:@[sql1, sql2, sql3, sql4, sql5, sql6] useTransaction:NO];
             
             [[theValue(result) should] beYes];
         });
@@ -110,31 +110,31 @@ describe(@"FMDBHelper", ^{
     
     context(@"query", ^{
         it(@"query:", ^{
-            NSArray *result = [XFMDBHelper query:tableName];
+            NSArray *result = [FMDBHelper query:tableName];
             
             [[result should] haveCountOf:3];
         });
         
         it(@"query:where:", ^{
-            NSArray *result = [XFMDBHelper query:tableName where:@"age>?", @20, nil];
+            NSArray *result = [FMDBHelper query:tableName where:@"age>?", @20, nil];
 
             [[result should] haveCountOf:2];
         });
         
         it(@"queryById:from:", ^{
-            NSDictionary *result = [XFMDBHelper queryById:@"id1" from:tableName];
+            NSDictionary *result = [FMDBHelper queryById:@"id1" from:tableName];
             
             [[result shouldNot] beNil];
         });
         
         it(@"totalRowOfTable:", ^{
-            NSInteger totalRow = [XFMDBHelper totalRowOfTable:tableName];
+            NSInteger totalRow = [FMDBHelper totalRowOfTable:tableName];
             
             [[theValue(totalRow) should] equal:theValue(3)];
         });
         
         it(@"totalRowOfTable:where:", ^{
-            NSInteger totalRow = [XFMDBHelper totalRowOfTable:tableName where:@"age>21"];
+            NSInteger totalRow = [FMDBHelper totalRowOfTable:tableName where:@"age>21"];
             
             [[theValue(totalRow) should] equal:theValue(1)];
         });

@@ -1,18 +1,18 @@
 //
-//  XFMDBHelper.m
+//  FMDBHelper.m
 //  FMDBHelper
 //
 //  Created by 李京城 on 15/3/10.
 //  Copyright (c) 2015年 lijingcheng. All rights reserved.
 //
 
-#import "XFMDBHelper.h"
+#import "FMDBHelper.h"
 #import "FMDB.h"
 
 static NSString * const kDBName = @"demo.db";
 static NSString * const kId = @"id";
 
-@implementation XFMDBHelper
+@implementation FMDBHelper
 
 + (void)load
 {
@@ -20,7 +20,9 @@ static NSString * const kId = @"id";
     dispatch_once(&onceToken, ^{
         if(![[NSFileManager defaultManager] fileExistsAtPath:[self dbPath]]) {
             NSString *bundlePath = [[NSBundle mainBundle] pathForResource:kDBName ofType:nil];
-            [[NSFileManager defaultManager] copyItemAtPath:bundlePath toPath:[self dbPath] error:nil];
+            if ([[NSFileManager defaultManager] fileExistsAtPath:bundlePath]) {
+                [[NSFileManager defaultManager] copyItemAtPath:bundlePath toPath:[self dbPath] error:nil];
+            }
         }
     });
 }

@@ -1,5 +1,5 @@
 //
-//  XFMDBHelper.h
+//  FMDBHelper.h
 //  FMDBHelper
 //
 //  Created by 李京城 on 15/3/10.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface XFMDBHelper : NSObject
+@interface FMDBHelper : NSObject
 
 /**
  *  插入数据
