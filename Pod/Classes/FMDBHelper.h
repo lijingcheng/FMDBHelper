@@ -3,21 +3,41 @@
 //  FMDBHelper
 //
 //  Created by 李京城 on 15/3/10.
-//  Copyright (c) 2015年 lijingcheng. All rights reserved.
+//  Copyright (c) 2015年 李京城. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import "NSObject+JCAdditionsORM.h"
+#import "NSObject+JCShorthandAdditionsORM.h"
 
 @interface FMDBHelper : NSObject
 
 /**
+ *  设置app使用的数据库
+ *
+ *  @param name         数据库文件的名字
+ *
+ *  @warning 如果要使用"FMDBHelper"，那么这个方法是必须要正确设置的
+ */
++ (void)setDataBaseName:(NSString *)name;
+
+/**
  *  插入数据
  *
- *  @param sql         SQL语句
+ *  @param sql          SQL语句
  *
  *  @return YES: 执行成功, NO: 执行失败
  */
 + (BOOL)insert:(NSString *)sql;
+
+/**
+ *  将传入对象插入到对应的数据库表中
+ *
+ *  @param obj          要插入的对象
+ *
+ *  @return YES: 执行成功, NO: 执行失败
+ */
++ (BOOL)insertObject:(NSObject *)obj;
 
 /**
  *  插入数据(如果表中存在相同记录，默认替换原数据)
@@ -32,9 +52,9 @@
 /**
  *  插入数据
  *
- *  @param table         要插入的表
- *  @param keyValues     要插入的字段名和值
- *  @param replace       如果表中存在相同记录，是否需要替换
+ *  @param table        要插入的表
+ *  @param keyValues    要插入的字段名和值
+ *  @param replace      如果表中存在相同记录，是否需要替换
  *
  *  @return YES: 执行成功, NO: 执行失败
  */
@@ -43,11 +63,20 @@
 /**
  *  更新数据
  *
- *  @param sql         SQL语句
+ *  @param sql          SQL语句
  *
  *  @return YES: 执行成功, NO: 执行失败
  */
 + (BOOL)update:(NSString *)sql;
+
+/**
+ *  根据传入对象更新对应的数据库记录
+ *
+ *  @param obj         要更新的对象
+ *
+ *  @return YES: 执行成功, NO: 执行失败
+ */
++ (BOOL)updateObject:(NSObject *)obj;
 
 /**
  *  更新数据
@@ -73,13 +102,22 @@
 + (BOOL)update:(NSString *)table keyValues:(NSDictionary *)keyValues where:(NSString *)where;
 
 /**
- *  删除数据
+ *  删除表中的所有数据
  *
  *  @param table         要删除的表
  *
  *  @return YES: 执行成功, NO: 执行失败
  */
 + (BOOL)remove:(NSString *)table;
+
+/**
+ *  删除传入对象对应的数据库记录
+ *
+ *  @param obj          要删除的对象
+ *
+ *  @return YES: 执行成功, NO: 执行失败
+ */
++ (BOOL)removeObject:(NSObject *)obj;
 
 /**
  *  根据id删除数据
@@ -102,9 +140,9 @@
 + (BOOL)remove:(NSString *)table where:(NSString *)where;
 
 /**
- *  查找数据
+ *  查找表中的所有数据
  *
- *  @param table         要查找的表
+ *  @param table        要查找的表
  *
  *  @return 如果查不到则返回空数组
  */
@@ -113,8 +151,8 @@
 /**
  *  根据id查找数据
  *
- *  @param id_         要查找的数据id
- *  @param table       要查找的表
+ *  @param id_          要查找的数据id
+ *  @param table        要查找的表
  *
  *  @return 如果查不到则返回nil
  */
@@ -131,7 +169,7 @@
 + (NSMutableArray *)query:(NSString *)table where:(NSString *)where, ... NS_REQUIRES_NIL_TERMINATION;
 
 /**
- *  查找指定表中有多少条数据
+ *  查找表中有多少条数据
  *
  *  @param table         要查找的表
  *
@@ -140,7 +178,7 @@
 + (NSInteger)totalRowOfTable:(NSString *)table;
 
 /**
- *  根据条件查找指定表中有多少条数据
+ *  根据条件查找表中有多少条数据
  *
  *  @param table         要查找的表
  *  @param where         查找条件

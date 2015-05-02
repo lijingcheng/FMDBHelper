@@ -9,8 +9,8 @@
 
 Pod::Spec.new do |s|
   s.name             = "FMDBHelper"
-  s.version          = "0.0.5"
-  s.summary          = "Let FMDB insert/update/delete/select becomes a little bit more simple."
+  s.version          = "0.0.6"
+  s.summary          = "Easier to use FMDB and support the ORM.(PS: Support JSON into Model)"
   s.homepage         = "http://lijingcheng.github.io/"
   s.license          = 'MIT'
   s.author           = { "lijingcheng" => "bj_lijingcheng@163.com" }

@@ -3,22 +3,23 @@
 //  FMDBHelper
 //
 //  Created by 李京城 on 15/3/23.
-//  Copyright (c) 2015年 lijingcheng. All rights reserved.
+//  Copyright (c) 2015年 李京城. All rights reserved.
 //
-
-#import "FMDBHelper.h"
 
 SPEC_BEGIN(FMDBHelperSpec)
 
-//Table structure:CREATE TABLE user (id text PRIMARY KEY,username text,age text,birthday text)
+//Table structure:CREATE TABLE user (id text PRIMARY KEY,username text,age integer,birthday text,dept text)
+//Table structure:CREATE TABLE dept (id text PRIMARY KEY,name text,manager text)
 
 describe(@"FMDBHelper", ^{
+    [FMDBHelper setDataBaseName:@"demo.db"];
+    
     NSString *tableName = @"user";
     
     context(@"insert", ^{
         __block NSDictionary *keyValues = nil;
         beforeEach(^{
-            keyValues = @{@"id": @"id2", @"username": @"zhangsan", @"age": @"20", @"birthday": @"1995-03-22"};
+            keyValues = @{@"id": @"id2", @"username": @"zhangsan", @"age": @20, @"birthday": @"1995-03-22"};
         });
         
         afterEach(^{
@@ -26,7 +27,7 @@ describe(@"FMDBHelper", ^{
         });
         
         it(@"insert:", ^{
-            NSString *sql = @"INSERT OR REPLACE INTO user (id,username,age,birthday) VALUES ('id1','zhangsan','20','1995-03-22')";
+            NSString *sql = @"INSERT OR REPLACE INTO user (id,username,age,birthday) VALUES ('id1','zhangsan',20,'1995-03-22')";
             BOOL result = [FMDBHelper insert:sql];
             
             [[theValue(result) should] beYes];
@@ -54,7 +55,7 @@ describe(@"FMDBHelper", ^{
         });
         
         it(@"update:keyValues:", ^{
-            NSDictionary *keyValues = @{@"id": @"id2", @"username": @"zhangsan", @"age": @"21", @"birthday": @"1994-03-21"};
+            NSDictionary *keyValues = @{@"id": @"id2", @"username": @"zhangsan", @"age": @21, @"birthday": @"1994-03-21"};
             BOOL result = [FMDBHelper update:tableName keyValues:keyValues];
             
             [[theValue(result) should] beYes];
@@ -88,10 +89,10 @@ describe(@"FMDBHelper", ^{
     });
     
     context(@"batch", ^{
-        NSString *sql1 = @"INSERT OR REPLACE INTO user (id,username,age,birthday) VALUES ('id1','zhangsan','20','1995-03-22')";
-        NSString *sql2 = @"INSERT OR REPLACE INTO user (id,username,age,birthday) VALUES ('id2','lisii','21','1994-03-22')";
-        NSString *sql3 = @"INSERT OR REPLACE INTO user (id,username,age,birthday) VALUES ('id3','wangwu','22','1993-03-22')";
-        NSString *sql4 = @"INSERT INTO user (id,username,age,birthday) VALUES ('id3','wangwu','22','1993-03-22')";
+        NSString *sql1 = @"INSERT OR REPLACE INTO user (id,username,age,birthday) VALUES ('id1','zhangsan',20,'1995-03-22')";
+        NSString *sql2 = @"INSERT OR REPLACE INTO user (id,username,age,birthday) VALUES ('id2','lisii',21,'1994-03-22')";
+        NSString *sql3 = @"INSERT OR REPLACE INTO user (id,username,age,birthday) VALUES ('id3','wangwu',22,'1993-03-22')";
+        NSString *sql4 = @"INSERT INTO user (id,username,age,birthday) VALUES ('id3','wangwu',22,'1993-03-22')";
         NSString *sql5 = @"update user set username='lisi' where id='id2'";
         NSString *sql6 = @"remove from user where id='id3'";
         

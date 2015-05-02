@@ -3,44 +3,60 @@
 //  FMDBHelper
 //
 //  Created by 李京城 on 15/3/10.
-//  Copyright (c) 2015年 lijingcheng. All rights reserved.
+//  Copyright (c) 2015年 李京城. All rights reserved.
 //
 
 #import "FMDBHelper.h"
 #import "FMDB.h"
 
-static NSString * const kDBName = @"demo.db";
-static NSString * const kId = @"id";
-
 @implementation FMDBHelper
 
-+ (void)load
+static NSString *dbName = @"";
+
++ (void)setDataBaseName:(NSString *)name
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        if(![[NSFileManager defaultManager] fileExistsAtPath:[self dbPath]]) {
-            NSString *bundlePath = [[NSBundle mainBundle] pathForResource:kDBName ofType:nil];
-            if ([[NSFileManager defaultManager] fileExistsAtPath:bundlePath]) {
-                [[NSFileManager defaultManager] copyItemAtPath:bundlePath toPath:[self dbPath] error:nil];
-            }
+    NSAssert(name, @"name cannot be nil!");
+    
+    dbName = name;
+    
+    if(![[NSFileManager defaultManager] fileExistsAtPath:[self dbPath]]) {
+        NSString *bundlePath = [[NSBundle mainBundle] pathForResource:dbName ofType:nil];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:bundlePath]) {
+            [[NSFileManager defaultManager] copyItemAtPath:bundlePath toPath:[self dbPath] error:nil];
         }
-    });
+        else {
+            NSAssert(NO, @"%@ does not exist!", dbName);
+        }
+    }
 }
 
 #pragma mark - insert
 
 + (BOOL)insert:(NSString *)sql
 {
+    NSAssert(sql, @"sql cannot be nil!");
+    
     return [self executeUpdate:sql args:nil];
+}
+
++ (BOOL)insertObject:(NSObject *)obj
+{
+    NSAssert(obj, @"obj cannot be nil!");
+    
+    return [self insert:[[obj class] jc_tableName] keyValues:[[obj class] jc_keyValues]];
 }
 
 + (BOOL)insert:(NSString *)table keyValues:(NSDictionary *)keyValues
 {
+    NSAssert(table && keyValues, @"table or keyValues cannot be nil!");
+    
     return [self insert:table keyValues:keyValues replace:YES];
 }
 
 + (BOOL)insert:(NSString *)table keyValues:(NSDictionary *)keyValues replace:(BOOL)replace
 {
+    NSAssert(table && keyValues, @"table or keyValues cannot be nil!");
+    
     NSMutableArray *columns = [NSMutableArray array];
     NSMutableArray *values = [NSMutableArray array];
     NSMutableArray *placeholder = [NSMutableArray array];
@@ -48,7 +64,7 @@ static NSString * const kId = @"id";
     [keyValues enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if (obj && ![obj isEqual:[NSNull null]]) {
             [columns addObject:key];
-            [values addObject:obj];
+            [values addObject:[self convertToJSONString:obj]];
             [placeholder addObject:@"?"];
         }
     }];
@@ -62,23 +78,37 @@ static NSString * const kId = @"id";
 
 + (BOOL)update:(NSString *)sql
 {
+    NSAssert(sql, @"sql cannot be nil!");
+    
     return [self executeUpdate:sql args:nil];
+}
+
++ (BOOL)updateObject:(NSObject *)obj
+{
+    NSAssert(obj, @"obj cannot be nil!");
+    
+    return [self update:[[obj class] jc_tableName] keyValues:[[obj class] jc_keyValues]];
 }
 
 + (BOOL)update:(NSString *)table keyValues:(NSDictionary *)keyValues
 {
-    return [self update:table keyValues:keyValues where:[NSString stringWithFormat:@"%@='%@'", kId, keyValues[kId]]];
+    NSAssert(table && keyValues, @"table or keyValues cannot be nil!");
+    NSAssert(keyValues[identifier], @"keyValues[@\"%@\"] cannot be nil!", identifier);
+    
+    return [self update:table keyValues:keyValues where:[NSString stringWithFormat:@"%@='%@'", identifier, keyValues[identifier]]];
 }
 
 + (BOOL)update:(NSString *)table keyValues:(NSDictionary *)keyValues where:(NSString *)where
 {
+    NSAssert(table && keyValues && where, @"table,keyValues,where can't be nil!");
+    
     NSMutableArray *settings = [NSMutableArray array];
     NSMutableArray *values = [NSMutableArray array];
     
     [keyValues enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if (obj && ![obj isEqual:[NSNull null]]) {
             [settings addObject:[NSString stringWithFormat:@"%@=?", key]];
-            [values addObject:obj];
+            [values addObject:[self convertToJSONString:obj]];
         }
     }];
     
@@ -91,16 +121,29 @@ static NSString * const kId = @"id";
 
 + (BOOL)remove:(NSString *)table
 {
+    NSAssert(table, @"table cannot be nil!");
+    
     return [self remove:table where:@"1=1"];
+}
+
++ (BOOL)removeObject:(NSObject *)obj
+{
+    NSAssert(obj, @"obj cannot be nil!");
+    
+    return [self removeById:obj.jc_ID from:[[obj class] jc_tableName]];
 }
 
 + (BOOL)removeById:(NSString *)id_ from:(NSString *)table
 {
-    return [self remove:table where:[NSString stringWithFormat:@"%@='%@'", kId, id_]];
+    NSAssert(id_ && table, @"id_ or table cannot be nil!");
+    
+    return [self remove:table where:[NSString stringWithFormat:@"%@='%@'", identifier, id_]];
 }
 
 + (BOOL)remove:(NSString *)table where:(NSString *)where
 {
+    NSAssert(table && where, @"table or where cannot be nil!");
+    
     NSString *sql = [[NSString alloc] initWithFormat:@"DELETE FROM %@ WHERE %@", table, where];
     
     return [self executeUpdate:sql args:nil];
@@ -111,18 +154,24 @@ static NSString * const kId = @"id";
 
 + (NSMutableArray *)query:(NSString *)table
 {
+    NSAssert(table, @"table cannot be nil!");
+    
     return [self query:table where:@"1=1", nil];
 }
 
 + (NSDictionary *)queryById:(NSString *)id_ from:(NSString *)table
 {
-    NSMutableArray *result = [self query:table where:[NSString stringWithFormat:@"%@=?", kId], id_, nil];
+    NSAssert(id_ && table, @"id_ or table cannot be nil!");
+    
+    NSMutableArray *result = [self query:table where:@"%@=?", identifier, id_, nil];
     
     return (result.count > 0) ? result.firstObject : nil;
 }
 
 + (NSMutableArray *)query:(NSString *)table where:(NSString *)where, ...
 {
+    NSAssert(table && where, @"table or where cannot be nil!");
+    
     NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:10];
     
     va_list args;
@@ -145,17 +194,21 @@ static NSString * const kId = @"id";
 
 + (NSInteger)totalRowOfTable:(NSString *)table
 {
+    NSAssert(table, @"table cannot be nil!");
+    
     return [self totalRowOfTable:table where:@"1=1"];
 }
 
 + (NSInteger)totalRowOfTable:(NSString *)table where:(NSString *)where
 {
+    NSAssert(table && where, @"table or where cannot be nil!");
+    
     NSInteger totalRow = 0;
     
     FMDatabase *db = [FMDatabase databaseWithPath:[self dbPath]];
     
     if ([db open]) {
-        FMResultSet *rs = [db executeQuery:[NSString stringWithFormat:@"SELECT COUNT(%@) totalRow FROM %@ WHERE %@", kId, table, where]];
+        FMResultSet *rs = [db executeQuery:[NSString stringWithFormat:@"SELECT COUNT(%@) totalRow FROM %@ WHERE %@", identifier, table, where]];
         if ([rs next]) {
             totalRow = [[rs resultDictionary][@"totalRow"] integerValue];
         }
@@ -170,6 +223,8 @@ static NSString * const kId = @"id";
 
 + (BOOL)executeBatch:(NSArray *)sqls useTransaction:(BOOL)useTransaction
 {
+    NSAssert(sqls, @"sqls cannot be nil!");
+    
     __block BOOL success = YES;
     
     FMDatabaseQueue *queue = [FMDatabaseQueue databaseQueueWithPath:[self dbPath]];
@@ -213,9 +268,24 @@ static NSString * const kId = @"id";
     return success;
 }
 
++ (id)convertToJSONString:(id)obj
+{
+    if ([obj isKindOfClass:[NSArray class]] || [obj isKindOfClass:[NSDictionary class]]) {
+        NSError *error = nil;
+        NSData *json = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&error];
+        if (!error) {
+            obj = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+        }
+    }
+    
+    return obj;
+}
+
 + (NSString *)dbPath
 {
-    return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:kDBName];
+    NSAssert(dbName, @"dbName cannot be nil!");
+    
+    return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:dbName];
 }
 
 @end

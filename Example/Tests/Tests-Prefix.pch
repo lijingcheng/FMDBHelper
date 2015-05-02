@@ -6,6 +6,9 @@
 
 #ifdef __OBJC__
 
-  #import <Kiwi/Kiwi.h>
+    #import <Kiwi/Kiwi.h>
+
+    #define JC_SHORTHAND_ORM
+    #import "FMDBHelper.h"
 
 #endif

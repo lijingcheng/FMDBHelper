@@ -1,6 +1,6 @@
 {
   "name": "FMDBHelper",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "summary": "Let FMDB insert/update/delete/select becomes a little bit more simple.",
   "homepage": "http://lijingcheng.github.io/",
   "license": "MIT",
@@ -9,7 +9,7 @@
   },
   "source": {
     "git": "https://github.com/lijingcheng/FMDBHelper.git",
-    "tag": "0.0.5"
+    "tag": "0.0.6"
   },
   "social_media_url": "http://weibo.com/lijingcheng1984",
   "requires_arc": true,

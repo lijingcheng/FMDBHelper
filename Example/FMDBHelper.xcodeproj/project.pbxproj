@@ -13,15 +13,17 @@
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F598195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F596195388D20070C39A /* InfoPlist.strings */; };
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
-		6003F59E195388D20070C39A /* XAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* XAppDelegate.m */; };
+		6003F59E195388D20070C39A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* AppDelegate.m */; };
 		6003F5A1195388D20070C39A /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6003F59F195388D20070C39A /* Main_iPhone.storyboard */; };
-		6003F5A7195388D20070C39A /* XViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* XViewController.m */; };
+		6003F5A7195388D20070C39A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* ViewController.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		686B23D10C9E67C0A8F33DE6 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CCD729E9E22DAD509A0450D /* libPods-Tests.a */; };
+		F30B6EB51AF4A560004AEFE8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = F30B6EB41AF4A560004AEFE8 /* User.m */; };
+		F30B6EB81AF4A56B004AEFE8 /* Dept.m in Sources */ = {isa = PBXBuildFile; fileRef = F30B6EB71AF4A56B004AEFE8 /* Dept.m */; };
 		F36156F31ABFFB5700DF7ED0 /* FMDBHelperSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F36156F21ABFFB5700DF7ED0 /* FMDBHelperSpec.m */; };
 		F3FC5DF81AAFEE7F002EE5B4 /* demo.db in Resources */ = {isa = PBXBuildFile; fileRef = F3FC5DF71AAFEE7F002EE5B4 /* demo.db */; };
 /* End PBXBuildFile section */
@@ -50,11 +52,11 @@
 		6003F597195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F599195388D20070C39A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6003F59B195388D20070C39A /* FMDBHelper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FMDBHelper-Prefix.pch"; sourceTree = "<group>"; };
-		6003F59C195388D20070C39A /* XAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XAppDelegate.h; sourceTree = "<group>"; };
-		6003F59D195388D20070C39A /* XAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XAppDelegate.m; sourceTree = "<group>"; };
+		6003F59C195388D20070C39A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6003F59D195388D20070C39A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6003F5A0195388D20070C39A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		6003F5A5195388D20070C39A /* XViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XViewController.h; sourceTree = "<group>"; };
-		6003F5A6195388D20070C39A /* XViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XViewController.m; sourceTree = "<group>"; };
+		6003F5A5195388D20070C39A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		6003F5A6195388D20070C39A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AE195388D20070C39A /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -65,6 +67,10 @@
 		9406083B582B43EE174070C9 /* Pods-FMDBHelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FMDBHelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FMDBHelper/Pods-FMDBHelper.debug.xcconfig"; sourceTree = "<group>"; };
 		E7E26EC72C9B6744854811BD /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		F1D2EA42EF53CB1343B348A2 /* libPods-FMDBHelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FMDBHelper.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F30B6EB31AF4A560004AEFE8 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		F30B6EB41AF4A560004AEFE8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		F30B6EB61AF4A56B004AEFE8 /* Dept.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dept.h; sourceTree = "<group>"; };
+		F30B6EB71AF4A56B004AEFE8 /* Dept.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dept.m; sourceTree = "<group>"; };
 		F36156F21ABFFB5700DF7ED0 /* FMDBHelperSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDBHelperSpec.m; sourceTree = "<group>"; };
 		F3FC5DF71AAFEE7F002EE5B4 /* demo.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = demo.db; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -132,10 +138,10 @@
 		6003F593195388D20070C39A /* FMDBHelper */ = {
 			isa = PBXGroup;
 			children = (
-				6003F59C195388D20070C39A /* XAppDelegate.h */,
-				6003F59D195388D20070C39A /* XAppDelegate.m */,
-				6003F5A5195388D20070C39A /* XViewController.h */,
-				6003F5A6195388D20070C39A /* XViewController.m */,
+				6003F59C195388D20070C39A /* AppDelegate.h */,
+				6003F59D195388D20070C39A /* AppDelegate.m */,
+				6003F5A5195388D20070C39A /* ViewController.h */,
+				6003F5A6195388D20070C39A /* ViewController.m */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
 			path = FMDBHelper;
@@ -158,6 +164,10 @@
 		6003F5B5195388D20070C39A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F30B6EB31AF4A560004AEFE8 /* User.h */,
+				F30B6EB41AF4A560004AEFE8 /* User.m */,
+				F30B6EB61AF4A56B004AEFE8 /* Dept.h */,
+				F30B6EB71AF4A56B004AEFE8 /* Dept.m */,
 				F36156F21ABFFB5700DF7ED0 /* FMDBHelperSpec.m */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
 			);
@@ -361,8 +371,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6003F59E195388D20070C39A /* XAppDelegate.m in Sources */,
-				6003F5A7195388D20070C39A /* XViewController.m in Sources */,
+				6003F59E195388D20070C39A /* AppDelegate.m in Sources */,
+				6003F5A7195388D20070C39A /* ViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,7 +381,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F30B6EB51AF4A560004AEFE8 /* User.m in Sources */,
 				F36156F31ABFFB5700DF7ED0 /* FMDBHelperSpec.m in Sources */,
+				F30B6EB81AF4A56B004AEFE8 /* Dept.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
