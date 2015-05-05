@@ -6,12 +6,14 @@
 //  Copyright (c) 2015年 李京城. All rights reserved.
 //
 
+#import "FMDBHelper.h"
+#import "User.h"
+#import "Dept.h"
+
 SPEC_BEGIN(FMDBHelperSpec)
 
-//Table structure:CREATE TABLE user (id text PRIMARY KEY,username text,age integer,birthday text,dept text)
-//Table structure:CREATE TABLE dept (id text PRIMARY KEY,name text,manager text)
-
 describe(@"FMDBHelper", ^{
+    
     [FMDBHelper setDataBaseName:@"demo.db"];
     
     NSString *tableName = @"user";
@@ -19,7 +21,8 @@ describe(@"FMDBHelper", ^{
     context(@"insert", ^{
         __block NSDictionary *keyValues = nil;
         beforeEach(^{
-            keyValues = @{@"id": @"id2", @"username": @"zhangsan", @"age": @20, @"birthday": @"1995-03-22"};
+            NSString *path = [[NSBundle mainBundle] pathForResource:@"demo" ofType:@"json"];
+            keyValues = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:path] options:NSJSONReadingMutableLeaves error:nil];
         });
         
         afterEach(^{
@@ -27,14 +30,26 @@ describe(@"FMDBHelper", ^{
         });
         
         it(@"insert:", ^{
-            NSString *sql = @"INSERT OR REPLACE INTO user (id,username,age,birthday) VALUES ('id1','zhangsan',20,'1995-03-22')";
+            NSString *sql = @"INSERT OR REPLACE INTO user (id,username,age,birthday,dept) VALUES ('id1','zhangsan',15,'2000/03/22','')";
             BOOL result = [FMDBHelper insert:sql];
             
             [[theValue(result) should] beYes];
         });
         
+        it(@"insertObject:", ^{
+            User *user = [[User alloc] initWithDictionary:keyValues];
+
+            BOOL result = [FMDBHelper insertObject:user];
+            
+            [[theValue(result) should] beYes];
+        });
+        
         it(@"insert:keyValues:", ^{
-            BOOL result = [FMDBHelper insert:tableName keyValues:keyValues];
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:keyValues];
+            dict[@"id"] = @"id2";
+            dict[@"username"] = @"lijingcheng";
+            
+            BOOL result = [FMDBHelper insert:tableName keyValues:dict];
             
             [[theValue(result) should] beYes];
         });
@@ -54,20 +69,28 @@ describe(@"FMDBHelper", ^{
             [[theValue(result) should] beYes];
         });
         
+        it(@"updateObject:", ^{
+            NSDictionary *dict = @{@"id": @"a1b2c3d4e5", @"username": @"><((*>", @"age": @18};
+            User *user = [[User alloc] initWithDictionary:dict];
+
+            BOOL result = [FMDBHelper updateObject:user];
+            
+            [[theValue(result) should] beYes];
+        });
+        
         it(@"update:keyValues:", ^{
-            NSDictionary *keyValues = @{@"id": @"id2", @"username": @"zhangsan", @"age": @21, @"birthday": @"1994-03-21"};
-            BOOL result = [FMDBHelper update:tableName keyValues:keyValues];
+            BOOL result = [FMDBHelper update:tableName keyValues:@{@"id": @"id2", @"username": @"victor", @"age": @18}];
             
             [[theValue(result) should] beYes];
         });
         
         it(@"update:keyValues:where:", ^{
-            BOOL result = [FMDBHelper update:tableName keyValues:@{@"username": @"wangwu"} where:@"username='haha'"];
+            BOOL result = [FMDBHelper update:tableName keyValues:@{@"username": @"wangwu"} where:@"username='victor'"];
             
             [[theValue(result) should] beYes];
         });
     });
-    
+
     context(@"delete", ^{
         it(@"removeById:from:", ^{
             BOOL result = [FMDBHelper removeById:@"id2" from:tableName];
@@ -75,8 +98,17 @@ describe(@"FMDBHelper", ^{
             [[theValue(result) should] beYes];
         });
         
+        it(@"removeObject:", ^{
+            NSDictionary *dict = @{@"id": @"a1b2c3d4e5", @"username": @"><((*>", @"age": @18};
+            User *user = [[User alloc] initWithDictionary:dict];
+            
+            BOOL result = [FMDBHelper removeObject:user];
+            
+            [[theValue(result) should] beYes];
+        });
+        
         it(@"remove:where", ^{
-            BOOL result = [FMDBHelper remove:tableName where:@"username='zhaoliu'"];
+            BOOL result = [FMDBHelper remove:tableName where:@"username='lisi'"];
             
             [[theValue(result) should] beYes];
         });
@@ -87,14 +119,14 @@ describe(@"FMDBHelper", ^{
             [[theValue(result) should] beYes];
         });
     });
-    
+
     context(@"batch", ^{
-        NSString *sql1 = @"INSERT OR REPLACE INTO user (id,username,age,birthday) VALUES ('id1','zhangsan',20,'1995-03-22')";
-        NSString *sql2 = @"INSERT OR REPLACE INTO user (id,username,age,birthday) VALUES ('id2','lisii',21,'1994-03-22')";
-        NSString *sql3 = @"INSERT OR REPLACE INTO user (id,username,age,birthday) VALUES ('id3','wangwu',22,'1993-03-22')";
+        NSString *sql1 = @"INSERT OR REPLACE INTO user (id,username,age,birthday,dept) VALUES ('id1','lijingcheng',31,'1984/3/28','{\n  \"id\" : \"f6g7h8i9j0\",\n  \"name\" : \"dev\",\n  \"manager\" : \"X\"\n}')";
+        NSString *sql2 = @"INSERT OR REPLACE INTO user (id,username,age,birthday,dept) VALUES ('id2','zhangsan',21,'1994/3/22','')";
+        NSString *sql3 = @"INSERT OR REPLACE INTO user (id,username,age,birthday,dept) VALUES ('id3','wangwu',22,'1993/3/21','')";
         NSString *sql4 = @"INSERT INTO user (id,username,age,birthday) VALUES ('id3','wangwu',22,'1993-03-22')";
         NSString *sql5 = @"update user set username='lisi' where id='id2'";
-        NSString *sql6 = @"remove from user where id='id3'";
+        NSString *sql6 = @"delete from user where id='id3'";
         
         it(@"executeBatch:useTransaction:(YES)", ^{
             BOOL result = [FMDBHelper executeBatch:@[sql1, sql2, sql3, sql4, sql5, sql6] useTransaction:YES];
@@ -108,12 +140,12 @@ describe(@"FMDBHelper", ^{
             [[theValue(result) should] beYes];
         });
     });
-    
+
     context(@"query", ^{
         it(@"query:", ^{
             NSArray *result = [FMDBHelper query:tableName];
             
-            [[result should] haveCountOf:3];
+            [[result should] haveCountOf:2];
         });
         
         it(@"query:where:", ^{
@@ -126,16 +158,23 @@ describe(@"FMDBHelper", ^{
             NSDictionary *result = [FMDBHelper queryById:@"id1" from:tableName];
             
             [[result shouldNot] beNil];
+            
+            User *user = [[User alloc] initWithDictionary:result];
+            NSLog(@"%@, %@, %ld, %@, %@", user.ID, user.name, (long)user.age, user.birthday, user.dept.keyValues);
+            
+            Dept *dept = [[Dept alloc] initWithDictionary:user.dept.keyValues];
+            
+            NSLog(@"%@, %@, %@", dept.ID, dept.name, dept.manager);
         });
         
         it(@"totalRowOfTable:", ^{
             NSInteger totalRow = [FMDBHelper totalRowOfTable:tableName];
             
-            [[theValue(totalRow) should] equal:theValue(3)];
+            [[theValue(totalRow) should] equal:theValue(2)];
         });
         
         it(@"totalRowOfTable:where:", ^{
-            NSInteger totalRow = [FMDBHelper totalRowOfTable:tableName where:@"age>21"];
+            NSInteger totalRow = [FMDBHelper totalRowOfTable:tableName where:@"age>24"];
             
             [[theValue(totalRow) should] equal:theValue(1)];
         });

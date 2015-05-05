@@ -25,6 +25,11 @@
 		F30B6EB51AF4A560004AEFE8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = F30B6EB41AF4A560004AEFE8 /* User.m */; };
 		F30B6EB81AF4A56B004AEFE8 /* Dept.m in Sources */ = {isa = PBXBuildFile; fileRef = F30B6EB71AF4A56B004AEFE8 /* Dept.m */; };
 		F36156F31ABFFB5700DF7ED0 /* FMDBHelperSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F36156F21ABFFB5700DF7ED0 /* FMDBHelperSpec.m */; };
+		F3E9FAAA1AF75AF5000E9CDF /* demo.json in Resources */ = {isa = PBXBuildFile; fileRef = F3E9FAA91AF75AF5000E9CDF /* demo.json */; };
+		F3E9FAAB1AF75F50000E9CDF /* demo.json in Resources */ = {isa = PBXBuildFile; fileRef = F3E9FAA91AF75AF5000E9CDF /* demo.json */; };
+		F3E9FAAC1AF75F50000E9CDF /* demo.db in Resources */ = {isa = PBXBuildFile; fileRef = F3FC5DF71AAFEE7F002EE5B4 /* demo.db */; };
+		F3E9FAAD1AF770D1000E9CDF /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = F30B6EB41AF4A560004AEFE8 /* User.m */; };
+		F3E9FAAE1AF770D1000E9CDF /* Dept.m in Sources */ = {isa = PBXBuildFile; fileRef = F30B6EB71AF4A56B004AEFE8 /* Dept.m */; };
 		F3FC5DF81AAFEE7F002EE5B4 /* demo.db in Resources */ = {isa = PBXBuildFile; fileRef = F3FC5DF71AAFEE7F002EE5B4 /* demo.db */; };
 /* End PBXBuildFile section */
 
@@ -72,7 +77,8 @@
 		F30B6EB61AF4A56B004AEFE8 /* Dept.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dept.h; sourceTree = "<group>"; };
 		F30B6EB71AF4A56B004AEFE8 /* Dept.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dept.m; sourceTree = "<group>"; };
 		F36156F21ABFFB5700DF7ED0 /* FMDBHelperSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDBHelperSpec.m; sourceTree = "<group>"; };
-		F3FC5DF71AAFEE7F002EE5B4 /* demo.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = demo.db; sourceTree = "<group>"; };
+		F3E9FAA91AF75AF5000E9CDF /* demo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = demo.json; path = ../FMDBHelper/demo.json; sourceTree = "<group>"; };
+		F3FC5DF71AAFEE7F002EE5B4 /* demo.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = demo.db; path = ../FMDBHelper/demo.db; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,7 +156,6 @@
 		6003F594195388D20070C39A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F3FC5DF71AAFEE7F002EE5B4 /* demo.db */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F59F195388D20070C39A /* Main_iPhone.storyboard */,
 				6003F59B195388D20070C39A /* FMDBHelper-Prefix.pch */,
@@ -164,6 +169,8 @@
 		6003F5B5195388D20070C39A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F3E9FAA91AF75AF5000E9CDF /* demo.json */,
+				F3FC5DF71AAFEE7F002EE5B4 /* demo.db */,
 				F30B6EB31AF4A560004AEFE8 /* User.h */,
 				F30B6EB41AF4A560004AEFE8 /* User.m */,
 				F30B6EB61AF4A56B004AEFE8 /* Dept.h */,
@@ -289,6 +296,7 @@
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F5A1195388D20070C39A /* Main_iPhone.storyboard in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
+				F3E9FAAA1AF75AF5000E9CDF /* demo.json in Resources */,
 				F3FC5DF81AAFEE7F002EE5B4 /* demo.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,6 +305,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3E9FAAB1AF75F50000E9CDF /* demo.json in Resources */,
+				F3E9FAAC1AF75F50000E9CDF /* demo.db in Resources */,
 				6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,6 +381,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3E9FAAD1AF770D1000E9CDF /* User.m in Sources */,
+				F3E9FAAE1AF770D1000E9CDF /* Dept.m in Sources */,
 				6003F59E195388D20070C39A /* AppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* ViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,

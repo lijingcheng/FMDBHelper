@@ -1,0 +1,1 @@
+../../../../../Pod/Classes/NSObject+JCAdditionsORM.h

@@ -43,7 +43,7 @@ static NSString *dbName = @"";
 {
     NSAssert(obj, @"obj cannot be nil!");
     
-    return [self insert:[[obj class] jc_tableName] keyValues:[[obj class] jc_keyValues]];
+    return [self insert:[[obj class] tableName] keyValues:[obj keyValues]];
 }
 
 + (BOOL)insert:(NSString *)table keyValues:(NSDictionary *)keyValues
@@ -64,7 +64,7 @@ static NSString *dbName = @"";
     [keyValues enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if (obj && ![obj isEqual:[NSNull null]]) {
             [columns addObject:key];
-            [values addObject:[self convertToJSONString:obj]];
+            [values addObject:obj];
             [placeholder addObject:@"?"];
         }
     }];
@@ -87,7 +87,7 @@ static NSString *dbName = @"";
 {
     NSAssert(obj, @"obj cannot be nil!");
     
-    return [self update:[[obj class] jc_tableName] keyValues:[[obj class] jc_keyValues]];
+    return [self update:[[obj class] tableName] keyValues:[obj keyValues]];
 }
 
 + (BOOL)update:(NSString *)table keyValues:(NSDictionary *)keyValues
@@ -108,7 +108,7 @@ static NSString *dbName = @"";
     [keyValues enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if (obj && ![obj isEqual:[NSNull null]]) {
             [settings addObject:[NSString stringWithFormat:@"%@=?", key]];
-            [values addObject:[self convertToJSONString:obj]];
+            [values addObject:obj];
         }
     }];
     
@@ -130,7 +130,7 @@ static NSString *dbName = @"";
 {
     NSAssert(obj, @"obj cannot be nil!");
     
-    return [self removeById:obj.jc_ID from:[[obj class] jc_tableName]];
+    return [self removeById:obj.ID from:[[obj class] tableName]];
 }
 
 + (BOOL)removeById:(NSString *)id_ from:(NSString *)table
@@ -163,7 +163,7 @@ static NSString *dbName = @"";
 {
     NSAssert(id_ && table, @"id_ or table cannot be nil!");
     
-    NSMutableArray *result = [self query:table where:@"%@=?", identifier, id_, nil];
+    NSMutableArray *result = [self query:table where:[NSString stringWithFormat:@"%@=?", identifier], id_, nil];
     
     return (result.count > 0) ? result.firstObject : nil;
 }
@@ -266,19 +266,6 @@ static NSString *dbName = @"";
     [db close];
     
     return success;
-}
-
-+ (id)convertToJSONString:(id)obj
-{
-    if ([obj isKindOfClass:[NSArray class]] || [obj isKindOfClass:[NSDictionary class]]) {
-        NSError *error = nil;
-        NSData *json = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&error];
-        if (!error) {
-            obj = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
-        }
-    }
-    
-    return obj;
 }
 
 + (NSString *)dbPath

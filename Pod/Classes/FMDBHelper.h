@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "NSObject+JCAdditionsORM.h"
-#import "NSObject+JCShorthandAdditionsORM.h"
 
 @interface FMDBHelper : NSObject
 
@@ -26,7 +25,7 @@
  *
  *  @param sql          SQL语句
  *
- *  @return YES: 执行成功, NO: 执行失败
+ *  @return YES: success, NO: fail
  */
 + (BOOL)insert:(NSString *)sql;
 
@@ -35,7 +34,7 @@
  *
  *  @param obj          要插入的对象
  *
- *  @return YES: 执行成功, NO: 执行失败
+ *  @return YES: success, NO: fail
  */
 + (BOOL)insertObject:(NSObject *)obj;
 
@@ -45,7 +44,7 @@
  *  @param table         要插入的表
  *  @param keyValues     要插入的字段名和值
  *
- *  @return YES: 执行成功, NO: 执行失败
+ *  @return YES: success, NO: fail
  */
 + (BOOL)insert:(NSString *)table keyValues:(NSDictionary *)keyValues;
 
@@ -56,7 +55,7 @@
  *  @param keyValues    要插入的字段名和值
  *  @param replace      如果表中存在相同记录，是否需要替换
  *
- *  @return YES: 执行成功, NO: 执行失败
+ *  @return YES: success, NO: fail
  */
 + (BOOL)insert:(NSString *)table keyValues:(NSDictionary *)keyValues replace:(BOOL)replace;
 
@@ -65,7 +64,7 @@
  *
  *  @param sql          SQL语句
  *
- *  @return YES: 执行成功, NO: 执行失败
+ *  @return YES: success, NO: fail
  */
 + (BOOL)update:(NSString *)sql;
 
@@ -74,7 +73,7 @@
  *
  *  @param obj         要更新的对象
  *
- *  @return YES: 执行成功, NO: 执行失败
+ *  @return YES: success, NO: fail
  */
 + (BOOL)updateObject:(NSObject *)obj;
 
@@ -84,7 +83,7 @@
  *  @param table         要更新的表
  *  @param keyValues     要更新的字段名和值
  *
- *  @return YES: 执行成功, NO: 执行失败
+ *  @return YES: success, NO: fail
  *
  *  @warning 默认的where条件是id=?，所以keyValues参数要包括id
  */
@@ -97,7 +96,7 @@
  *  @param keyValues     要更新的字段名和值
  *  @param where         更新条件
  *
- *  @return YES: 执行成功, NO: 执行失败
+ *  @return YES: success, NO: fail
  */
 + (BOOL)update:(NSString *)table keyValues:(NSDictionary *)keyValues where:(NSString *)where;
 
@@ -106,7 +105,7 @@
  *
  *  @param table         要删除的表
  *
- *  @return YES: 执行成功, NO: 执行失败
+ *  @return YES: success, NO: fail
  */
 + (BOOL)remove:(NSString *)table;
 
@@ -115,7 +114,7 @@
  *
  *  @param obj          要删除的对象
  *
- *  @return YES: 执行成功, NO: 执行失败
+ *  @return YES: success, NO: fail
  */
 + (BOOL)removeObject:(NSObject *)obj;
 
@@ -125,7 +124,7 @@
  *  @param id_           要删除的数据id
  *  @param table         要删除的表
  *
- *  @return YES: 执行成功, NO: 执行失败
+ *  @return YES: success, NO: fail
  */
 + (BOOL)removeById:(NSString *)id_ from:(NSString *)table;
 
@@ -135,7 +134,7 @@
  *  @param table         要删除的表
  *  @param where         删除条件
  *
- *  @return YES: 执行成功, NO: 执行失败
+ *  @return YES: success, NO: fail
  */
 + (BOOL)remove:(NSString *)table where:(NSString *)where;
 
@@ -193,7 +192,7 @@
  *  @param sqls              要执行的sql语句(insert/update/delete)
  *  @param useTransaction    是否使用事务
  *
- *  @return YES: 执行成功, NO: 执行失败
+ *  @return YES: success, NO: fail
  */
 + (BOOL)executeBatch:(NSArray *)sqls useTransaction:(BOOL)useTransaction;
 

@@ -1,7 +1,7 @@
 {
   "name": "FMDBHelper",
   "version": "0.0.6",
-  "summary": "Let FMDB insert/update/delete/select becomes a little bit more simple.",
+  "summary": "Easier to use FMDB, support the ORM and JSON into Model.",
   "homepage": "http://lijingcheng.github.io/",
   "license": "MIT",
   "authors": {

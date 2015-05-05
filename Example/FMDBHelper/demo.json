@@ -1,0 +1,11 @@
+{
+  "id": "a1b2c3d4e5",
+  "username": "李京城",
+  "age": 31,
+  "birthday": "1984/3/28",
+  "dept":{
+    "id": "f6g7h8i9j0",
+    "name": "dev",
+    "manager": "X"
+  }
+}

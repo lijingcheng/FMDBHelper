@@ -15,23 +15,19 @@ NSString * const identifier = @"id";
 
 static const void *IDKey;
 
-- (instancetype)jc_initWithDictionary:(NSDictionary *)keyValues
+- (instancetype)initWithDictionary:(NSDictionary *)keyValues
 {
     NSAssert(keyValues, @"keyValues cannot be nil!");
     NSAssert([keyValues isKindOfClass:[NSDictionary class]], @"keyValues must be kind of NSDictionary!");
     
-    NSDictionary *objectPropertys = [self jc_objectPropertys];
-    NSDictionary *mapping = [self jc_mapping];
-    #ifdef JC_SHORTHAND_ORM
-        objectPropertys = [self objectPropertys];
-        mapping = [self mapping];
-    #endif
+    NSDictionary *objectPropertys = [self objectPropertys];
+    NSDictionary *mapping = [self mapping];
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:keyValues.count];
     [keyValues enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if ([obj jc_isValid]) {
             if ([key isEqualToString:identifier]) {
-                [dict setObject:obj forKey:NSStringFromSelector(@selector(jc_ID))];
+                [dict setObject:obj forKey:NSStringFromSelector(@selector(ID))];
             }
             else {
                 NSString *useKey = mapping[key] ? : key;
@@ -46,7 +42,7 @@ static const void *IDKey;
                 }
                 
                 if ([obj isKindOfClass:[NSDictionary class]] && objectPropertys[useKey]) {
-                    [dict setObject:[[objectPropertys[useKey] alloc] jc_initWithDictionary:obj] forKey:useKey];
+                    [dict setObject:[[objectPropertys[useKey] alloc] initWithDictionary:obj] forKey:useKey];
                 }
                 else {
                     [dict setObject:obj forKey:useKey];
@@ -60,50 +56,65 @@ static const void *IDKey;
     return self;
 }
 
-- (NSString *)jc_ID
+- (NSString *)ID
 {
     return objc_getAssociatedObject(self, &IDKey);
 }
 
-- (void)setJc_ID:(NSString *)jc_ID
+- (void)setID:(NSString *)ID
 {
-    NSAssert(jc_ID, @"jc_ID cannot be nil!");
+    NSAssert(ID, @"ID cannot be nil!");
     
-    objc_setAssociatedObject(self, &IDKey, jc_ID, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, &IDKey, ID, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (NSMutableDictionary *)jc_keyValues
+- (NSMutableDictionary *)keyValues
 {
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:[self dictionaryWithValuesForKeys:self.jc_propertys]];
-    NSString *idKey = NSStringFromSelector(@selector(jc_ID));
-    [dict setObject:dict[idKey] forKey:identifier];
-    [dict removeObjectForKey:idKey];
+    NSDictionary *objectPropertys = [self objectPropertys];
+    NSDictionary *mapping = [self mapping];
     
-    NSDictionary *objectPropertys = [self jc_objectPropertys];
-    #ifdef JC_SHORTHAND_ORM
-        objectPropertys = [self objectPropertys];
-    #endif
+    NSDictionary *keyValues = [self dictionaryWithValuesForKeys:self.jc_propertys];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:keyValues.count];
     
-    [objectPropertys enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        if([dict[key] jc_isValid]) {
-            [dict setObject:[dict[key] jc_keyValues] forKey:key];
+    [keyValues enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if ([obj jc_isValid]) {
+            if ([key isEqualToString:NSStringFromSelector(@selector(ID))]) {
+                [dict setObject:obj forKey:identifier];
+            }
+            else {
+                NSString *useKey = [[mapping allKeysForObject:key] firstObject] ? : key;
+                
+                if (objectPropertys[useKey]) {
+                    obj = [obj keyValues];
+                }
+                
+                if ([obj isKindOfClass:[NSArray class]] || [obj isKindOfClass:[NSDictionary class]]) {
+                    NSError *error = nil;
+                    NSData *json = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&error];
+                    if (!error) {
+                        obj = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+                    }
+                }
+                
+                [dict setObject:obj forKey:useKey];
+            }
         }
     }];
     
     return dict;
 }
 
-- (NSDictionary *)jc_objectPropertys
+- (NSDictionary *)objectPropertys
 {
     return @{};
 }
 
-- (NSDictionary *)jc_mapping
+- (NSDictionary *)mapping
 {
     return @{};
 }
 
-+ (NSString *)jc_tableName
++ (NSString *)tableName
 {
     return NSStringFromClass([self class]);
 }
@@ -113,7 +124,7 @@ static const void *IDKey;
 - (NSMutableArray *)jc_propertys
 {
     NSMutableArray *allKeys = [[NSMutableArray alloc] initWithCapacity:10];
-    [allKeys addObject:NSStringFromSelector(@selector(jc_ID))];
+    [allKeys addObject:NSStringFromSelector(@selector(ID))];
     
     unsigned int count;
     objc_property_t *properties = class_copyPropertyList([self class], &count);

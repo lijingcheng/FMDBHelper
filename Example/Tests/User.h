@@ -14,6 +14,6 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, assign) NSInteger age;
 @property (nonatomic, copy) NSString *birthday;
-@property (nonatomic, assign) Dept *dept;
+@property (nonatomic, strong) Dept *dept;
 
 @end
