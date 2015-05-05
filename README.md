@@ -105,11 +105,11 @@ NSLog(@"%@, %@, %ld, %@", user.ID, user.name, (long)user.age, user.birthday);
 NSLog(@"%@, %@, %@", user.dept.ID, user.dept.name, user.dept.manager);
 ```
 
-####More usage reference test case.
+**More usage reference test case.**
 
 ## Attention
 
-Does not support Model collections, such as "NSArray&lt;User&gt;* users";
+Does not support model collections, such as NSArray&lt;User&gt;* users;
 
 ## Author
 
