@@ -8,42 +8,41 @@
 
 #import <Foundation/Foundation.h>
 
-//用于对应数据库表中的主键id或者是json数据的id字段
 extern NSString * const identifier;
 
 @interface NSObject (JCAdditionsORM)
 
 /**
- *  为每个对象增加一个"id"属性，用于对应数据库表中的主键id
+ *  For the corresponding database table primary key id
  */
 @property (nonatomic, copy) NSString *ID;
 
 /**
- *  对象包含的属性及对应的值
+ *  Properties and corresponding values
  */
 @property (nonatomic, readonly) NSMutableDictionary *keyValues;
 
 /**
- *  keyValues中的key要与Model类中的属性名称相对应，如不一致@see jc_mapping
+ *  The key is the best as the property name，if not. @see mapping
  */
 - (instancetype)initWithDictionary:(NSDictionary *)keyValues;
 
 /**
- *  if the property type is a custom class, you need to overwrite this method.
+ *  If the property type is a custom class, you need to overwrite this method.
  *
  *  @return key is property name, value is model class, default return @{};
  */
 - (NSDictionary *)objectPropertys;
 
 /**
- *  if the property name and the data source is not the same key, you need to overwrite this method.
+ *  If the property name and the data source is not the same key, you need to overwrite this method.
  *
  *  @return key is datasource's key, value is property name, default return @{}.
  */
 - (NSDictionary *)mapping;
 
 /**
- *  if the model class name and the table name is different, you need to overwrite this method.
+ *  If the model class name and the table name is different, you need to overwrite this method.
  *
  *  @return default return the class name.
  */
