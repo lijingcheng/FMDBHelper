@@ -13,11 +13,24 @@ pod "FMDBHelper"
 ## Usage
 
 - Add #import "FMDBHelper.h" to your prefix.pch
-- [FMDBHelper setDataBaseName:@"demo.db"];demo.db是已存在的数据库文件，FMDBHelper会将它复制到documents目录下
+-  Set the app to use the database file.
+``` objc
+[FMDBHelper setDataBaseName:@"demo.db"];
+```
+- Example
+``` js
+if you have a table like this:
 
+user (
+  id text PRIMARY KEY,
+  username text,
+  age integer,
+  birthday text,
+  dept text
+)
 
-//Table structure:CREATE TABLE user (id text PRIMARY KEY,username text,age integer,birthday text,dept text)
-if you have a JSON like this:
+or have a JSON like this:
+
 {
   "id": "a1b2c3d4e5",
   "username": "李京城",
@@ -29,7 +42,10 @@ if you have a JSON like this:
     "manager": "X"
   }
 }
-Create a new Objective-C class for your data model and declare properties in your header file with the name of the JSON keys:
+```
+
+你需要按以下方式定义model类
+
 ``` objc
 #import "Dept.h"
 
@@ -44,15 +60,15 @@ Create a new Objective-C class for your data model and declare properties in you
 ```
 
 
-- 如果model类的名字与它对应的数据库表名不一致，则需要重写tablename方法
+如果model类的名字与它对应的数据库表名不一致，则需要重写tablename方法
 ``` objc
 + (NSString *)tableName
 {
-    return @"name";
+    return @"sys_user";
 }
 ```
 
-- 表的主键字段默认为"id"   不管数据来自数据库还是JSON，只要字段与Model类中的属性名字不一致，则需要重写mapping方法
+表的主键字段默认为"id"   不管数据来自数据库还是JSON，只要字段与Model类中的属性名字不一致，则需要重写mapping方法
 ``` objc
 - (NSDictionary *)mapping
 {
