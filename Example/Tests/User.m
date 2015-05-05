@@ -20,4 +20,9 @@
     return @{@"dept": [Dept class]};
 }
 
++ (NSString *)tableName
+{
+    return @"sys_user";
+}
+
 @end

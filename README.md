@@ -13,14 +13,13 @@ pod "FMDBHelper"
 ## Usage
 
 - Add #import "FMDBHelper.h" to your prefix.pch
--  Set the app to use the database file.
+-  Setting up the database file and the file must exist.
 ``` objc
 [FMDBHelper setDataBaseName:@"demo.db"];
 ```
 - Example
-``` js
 if you have a table like this:
-
+``` js
 user (
   id text PRIMARY KEY,
   username text,
@@ -28,9 +27,9 @@ user (
   birthday text,
   dept text
 )
-
+```
 or have a JSON like this:
-
+``` js
 {
   "id": "a1b2c3d4e5",
   "username": "李京城",
@@ -44,11 +43,10 @@ or have a JSON like this:
 }
 ```
 
-你需要按以下方式定义model类
+Create a model class and declare properties with the name of the JSON keys.
 
 ``` objc
-#import "Dept.h"
-
+//User.h
 @interface User : NSObject
 
 @property (nonatomic, copy) NSString *name;
@@ -57,10 +55,51 @@ or have a JSON like this:
 @property (nonatomic, strong) Dept *dept;
 
 @end
+
+//User.m
+@implementation User
+
+- (NSDictionary *)mapping
+{
+    return @{@"username": @"name"};
+}
+
+- (NSDictionary *)objectPropertys
+{
+    return @{@"dept": [Dept class]};
+}
+
++ (NSString *)tableName
+{
+    return @"sys_user";
+}
+
+@end
 ```
 
+``` objc
+//insert
+NSString *path = [[NSBundle mainBundle] pathForResource:@"demo" ofType:@"json"];
+NSDictionary *keyValues = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:path] options:NSJSONReadingMutableLeaves error:nil];
 
-如果model类的名字与它对应的数据库表名不一致，则需要重写tablename方法
+User *user = [[User alloc] initWithDictionary:keyValues];
+
+[FMDBHelper insertObject:user];
+
+//query
+NSDictionary *result = [FMDBHelper queryById:@"a1b2c3d4e5" from:[User tableName]];
+
+User *user = [[User alloc] initWithDictionary:result];
+NSLog(@"%@, %@, %ld, %@, %@", user.ID, user.name, (long)user.age, user.birthday, user.dept.keyValues);
+
+Dept *dept = [[Dept alloc] initWithDictionary:user.dept.keyValues];
+
+NSLog(@"%@, %@, %@", dept.ID, dept.name, dept.manager);
+
+```
+
+如果model类的名字与表名不一致，则需要重写tablename方法
+If the model class name and the table name are not, you need to overwrite tableName method
 ``` objc
 + (NSString *)tableName
 {
@@ -84,14 +123,9 @@ or have a JSON like this:
 }
 ```
 
+## Attention
 
-
-Table structure:CREATE TABLE user (id text PRIMARY KEY,username text,age integer,birthday text,dept text)
-or
-
-
-
-不支持Model collections，如@property (strong, nonatomic) NSArray<ProductModel>* products;
+Does not support Model collections, such as NSArray<User>* users;
 
 ## Author
 
