@@ -17,7 +17,7 @@ pod "FMDBHelper"
 ``` objc
 [FMDBHelper setDataBaseName:@"demo.db"];
 ```
-- Example
+- Example  
 if you have a table like this:
 ``` js
 user (
@@ -77,6 +77,8 @@ Create a model class and declare properties with the name of the JSON keys.
 @end
 ```
 
+Use
+
 ``` objc
 //insert
 NSString *path = [[NSBundle mainBundle] pathForResource:@"demo" ofType:@"json"];
@@ -125,7 +127,7 @@ If the model class name and the table name are not, you need to overwrite tableN
 
 ## Attention
 
-Does not support Model collections, such as NSArray<User>* users;
+Does not support Model collections, such as "NSArray<User>* users";
 
 ## Author
 
