@@ -41,9 +41,10 @@ extern NSString * const identifier;
 - (NSDictionary *)mapping;
 
 /**
- *  默认情况下自定义Model类对应数据库中的表名为类的名字，如需更改则需要重写此方法
+ *  if the model class name and the table name is different, you need to overwrite this method.
+ *
+ *  @return default returns the class name.
  */
-//返回model类对应的数据库表名，default: class name
 + (NSString *)tableName;
 
 @end

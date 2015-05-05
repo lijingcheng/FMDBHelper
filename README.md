@@ -17,7 +17,9 @@ pod "FMDBHelper"
 ``` objc
 [FMDBHelper setDataBaseName:@"demo.db"];
 ```
-- Example  
+
+## Example  
+
 if you have a table like this:
 ``` js
 user (
@@ -69,6 +71,7 @@ Create a model class and declare properties with the name of the JSON keys.
     return @{@"dept": [Dept class]};
 }
 
+//if the model class name and the table name is different, you need to overwrite this method
 + (NSString *)tableName
 {
     return @"sys_user";
@@ -77,10 +80,9 @@ Create a model class and declare properties with the name of the JSON keys.
 @end
 ```
 
-Use
+Read JSON and insert into the table. 
 
 ``` objc
-//insert
 NSString *path = [[NSBundle mainBundle] pathForResource:@"demo" ofType:@"json"];
 NSDictionary *keyValues = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:path] options:NSJSONReadingMutableLeaves error:nil];
 
@@ -88,25 +90,17 @@ User *user = [[User alloc] initWithDictionary:keyValues];
 
 [FMDBHelper insertObject:user];
 
-//query
+```
+
+query data from the table and initialize the model object
+
+``` objc
 NSDictionary *result = [FMDBHelper queryById:@"a1b2c3d4e5" from:[User tableName]];
 
 User *user = [[User alloc] initWithDictionary:result];
-NSLog(@"%@, %@, %ld, %@, %@", user.ID, user.name, (long)user.age, user.birthday, user.dept.keyValues);
 
-Dept *dept = [[Dept alloc] initWithDictionary:user.dept.keyValues];
-
-NSLog(@"%@, %@, %@", dept.ID, dept.name, dept.manager);
-
-```
-
-如果model类的名字与表名不一致，则需要重写tablename方法
-If the model class name and the table name are not, you need to overwrite tableName method
-``` objc
-+ (NSString *)tableName
-{
-    return @"sys_user";
-}
+NSLog(@"%@, %@, %ld, %@", user.ID, user.name, (long)user.age, user.birthday);
+NSLog(@"%@, %@, %@", user.dept.ID, user.dept.name, user.dept.manager);
 ```
 
 表的主键字段默认为"id"   不管数据来自数据库还是JSON，只要字段与Model类中的属性名字不一致，则需要重写mapping方法
@@ -127,7 +121,7 @@ If the model class name and the table name are not, you need to overwrite tableN
 
 ## Attention
 
-Does not support Model collections, such as "NSArray<User>* users";
+Does not support Model collections, such as "NSArray(User)* users";
 
 ## Author
 
