@@ -35,7 +35,7 @@ extern NSString * const identifier;
 - (NSDictionary *)objectPropertys;
 
 /**
- *  If the property name and the data source is not the same key, you need to overwrite this method.
+ *  If the property name and the JSON keys is not the same key, you need to overwrite this method.
  *
  *  @return key is datasource's key, value is property name, default return @{}.
  */

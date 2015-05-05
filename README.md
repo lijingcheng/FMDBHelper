@@ -24,7 +24,7 @@ if you have a table like this:
 ``` js
 user (
   id text PRIMARY KEY,
-  username text,
+  name text,
   age integer,
   birthday text,
   dept text
@@ -45,7 +45,7 @@ or have a JSON like this:
 }
 ```
 
-Create a model class and declare properties with the name of the JSON keys.
+Create a model class and declare properties, property name must be consistent with the field names in a database table, but it doesn't have to be consistent with json keys.
 
 ``` objc
 //User.h
@@ -61,7 +61,7 @@ Create a model class and declare properties with the name of the JSON keys.
 //User.m
 @implementation User
 
-//if the property name and the data source is not the same key, you need to overwrite this method.
+//if the property name and the JSON keys is not the same key, you need to overwrite this method.
 - (NSDictionary *)mapping
 {
     return @{@"username": @"name"};

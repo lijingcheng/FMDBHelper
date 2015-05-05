@@ -71,7 +71,6 @@ static const void *IDKey;
 - (NSMutableDictionary *)keyValues
 {
     NSDictionary *objectPropertys = [self objectPropertys];
-    NSDictionary *mapping = [self mapping];
     
     NSDictionary *keyValues = [self dictionaryWithValuesForKeys:self.jc_propertys];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:keyValues.count];
@@ -82,9 +81,7 @@ static const void *IDKey;
                 [dict setObject:obj forKey:identifier];
             }
             else {
-                NSString *useKey = [[mapping allKeysForObject:key] firstObject] ? : key;
-                
-                if (objectPropertys[useKey]) {
+                if (objectPropertys[key]) {
                     obj = [obj keyValues];
                 }
                 
@@ -96,7 +93,7 @@ static const void *IDKey;
                     }
                 }
                 
-                [dict setObject:obj forKey:useKey];
+                [dict setObject:obj forKey:key];
             }
         }
     }];

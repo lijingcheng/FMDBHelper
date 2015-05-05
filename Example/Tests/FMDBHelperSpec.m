@@ -30,7 +30,7 @@ describe(@"FMDBHelper", ^{
         });
         
         it(@"insert:", ^{
-            NSString *sql = @"INSERT OR REPLACE INTO sys_user (id,username,age,birthday,dept) VALUES ('id1','zhangsan',15,'2000/03/22','')";
+            NSString *sql = @"INSERT OR REPLACE INTO sys_user (id,name,age,birthday,dept) VALUES ('id1','zhangsan',15,'2000/03/22','')";
             BOOL result = [FMDBHelper insert:sql];
             
             [[theValue(result) should] beYes];
@@ -47,7 +47,8 @@ describe(@"FMDBHelper", ^{
         it(@"insert:keyValues:", ^{
             NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:keyValues];
             dict[@"id"] = @"id2";
-            dict[@"username"] = @"lijingcheng";
+            dict[@"name"] = @"lijingcheng";
+            [dict removeObjectForKey:@"username"];
             
             BOOL result = [FMDBHelper insert:tableName keyValues:dict];
             
@@ -63,14 +64,14 @@ describe(@"FMDBHelper", ^{
     
     context(@"update", ^{
         it(@"update:", ^{
-            NSString *sql = @"update sys_user set username='lisi' where id='id1'";
+            NSString *sql = @"update sys_user set name='lisi' where id='id1'";
             BOOL result = [FMDBHelper update:sql];
             
             [[theValue(result) should] beYes];
         });
         
         it(@"updateObject:", ^{
-            NSDictionary *dict = @{@"id": @"a1b2c3d4e5", @"username": @"><((*>", @"age": @18};
+            NSDictionary *dict = @{@"id": @"a1b2c3d4e5", @"name": @"><((*>", @"age": @18};
             User *user = [[User alloc] initWithDictionary:dict];
 
             BOOL result = [FMDBHelper updateObject:user];
@@ -79,13 +80,13 @@ describe(@"FMDBHelper", ^{
         });
         
         it(@"update:keyValues:", ^{
-            BOOL result = [FMDBHelper update:tableName keyValues:@{@"id": @"id2", @"username": @"victor", @"age": @18}];
+            BOOL result = [FMDBHelper update:tableName keyValues:@{@"id": @"id2", @"name": @"victor", @"age": @18}];
             
             [[theValue(result) should] beYes];
         });
         
         it(@"update:keyValues:where:", ^{
-            BOOL result = [FMDBHelper update:tableName keyValues:@{@"username": @"wangwu"} where:@"username='victor'"];
+            BOOL result = [FMDBHelper update:tableName keyValues:@{@"name": @"wangwu"} where:@"name='victor'"];
             
             [[theValue(result) should] beYes];
         });
@@ -99,7 +100,7 @@ describe(@"FMDBHelper", ^{
         });
         
         it(@"removeObject:", ^{
-            NSDictionary *dict = @{@"id": @"a1b2c3d4e5", @"username": @"><((*>", @"age": @18};
+            NSDictionary *dict = @{@"id": @"a1b2c3d4e5", @"name": @"><((*>", @"age": @18};
             User *user = [[User alloc] initWithDictionary:dict];
             
             BOOL result = [FMDBHelper removeObject:user];
@@ -108,7 +109,7 @@ describe(@"FMDBHelper", ^{
         });
         
         it(@"remove:where", ^{
-            BOOL result = [FMDBHelper remove:tableName where:@"username='lisi'"];
+            BOOL result = [FMDBHelper remove:tableName where:@"name='lisi'"];
             
             [[theValue(result) should] beYes];
         });
@@ -121,11 +122,11 @@ describe(@"FMDBHelper", ^{
     });
 
     context(@"batch", ^{
-        NSString *sql1 = @"INSERT OR REPLACE INTO sys_user (id,username,age,birthday,dept) VALUES ('id1','lijingcheng',31,'1984/3/28','{\n  \"id\" : \"f6g7h8i9j0\",\n  \"name\" : \"dev\",\n  \"manager\" : \"X\"\n}')";
-        NSString *sql2 = @"INSERT OR REPLACE INTO sys_user (id,username,age,birthday,dept) VALUES ('id2','zhangsan',21,'1994/3/22','')";
-        NSString *sql3 = @"INSERT OR REPLACE INTO sys_user (id,username,age,birthday,dept) VALUES ('id3','wangwu',22,'1993/3/21','')";
-        NSString *sql4 = @"INSERT INTO sys_user (id,username,age,birthday) VALUES ('id3','wangwu',22,'1993-03-22')";
-        NSString *sql5 = @"update sys_user set username='lisi' where id='id2'";
+        NSString *sql1 = @"INSERT OR REPLACE INTO sys_user (id,name,age,birthday,dept) VALUES ('id1','lijingcheng',31,'1984/3/28','{\n  \"id\" : \"f6g7h8i9j0\",\n  \"name\" : \"dev\",\n  \"manager\" : \"X\"\n}')";
+        NSString *sql2 = @"INSERT OR REPLACE INTO sys_user (id,name,age,birthday,dept) VALUES ('id2','zhangsan',21,'1994/3/22','')";
+        NSString *sql3 = @"INSERT OR REPLACE INTO sys_user (id,name,age,birthday,dept) VALUES ('id3','wangwu',22,'1993/3/21','')";
+        NSString *sql4 = @"INSERT INTO sys_user (id,name,age,birthday) VALUES ('id3','wangwu',22,'1993-03-22')";
+        NSString *sql5 = @"update sys_user set name='lisi' where id='id2'";
         NSString *sql6 = @"delete from sys_user where id='id3'";
         
         it(@"executeBatch:useTransaction:(YES)", ^{
