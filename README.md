@@ -61,11 +61,13 @@ Create a model class and declare properties with the name of the JSON keys.
 //User.m
 @implementation User
 
+//if the property name and the data source is not the same key, you need to overwrite this method.
 - (NSDictionary *)mapping
 {
     return @{@"username": @"name"};
 }
 
+//if the property type is a custom class, you need to overwrite this method.
 - (NSDictionary *)objectPropertys
 {
     return @{@"dept": [Dept class]};
@@ -92,7 +94,7 @@ User *user = [[User alloc] initWithDictionary:keyValues];
 
 ```
 
-query data from the table and initialize the model object
+Query data from the table and initialize the model object
 
 ``` objc
 NSDictionary *result = [FMDBHelper queryById:@"a1b2c3d4e5" from:[User tableName]];
@@ -103,21 +105,7 @@ NSLog(@"%@, %@, %ld, %@", user.ID, user.name, (long)user.age, user.birthday);
 NSLog(@"%@, %@, %@", user.dept.ID, user.dept.name, user.dept.manager);
 ```
 
-表的主键字段默认为"id"   不管数据来自数据库还是JSON，只要字段与Model类中的属性名字不一致，则需要重写mapping方法
-``` objc
-- (NSDictionary *)mapping
-{
-    return @{@"数据字段名称": @"Model类的属性名称"};
-}
-
-```
-- 如果Model类的属性类型不是来自Foundation框架，而是自定义的另一Model类，则需要重写objectPropertys方法
-``` objc
-- (NSDictionary *)objectPropertys
-{
-    return @{@"dept": [Dept class]};@{@"Model类的属性名称": [该属性对应的类名 class]};
-}
-```
+More usage reference test case.
 
 ## Attention
 

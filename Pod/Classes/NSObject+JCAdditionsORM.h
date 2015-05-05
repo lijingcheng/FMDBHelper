@@ -29,21 +29,23 @@ extern NSString * const identifier;
 - (instancetype)initWithDictionary:(NSDictionary *)keyValues;
 
 /**
- *  如果Model类的属性类型不是来自Foundation框架，而是自定义的另一Model类，则需要在此方法中设置对应关系
- *  例: @{@"Model类的属性名称": [该属性对应的类名 class]};
+ *  if the property type is a custom class, you need to overwrite this method.
+ *
+ *  @return key is property name, value is model class, default return @{};
  */
 - (NSDictionary *)objectPropertys;
 
 /**
- *  不管数据来自数据库还是JSON，只要字段与Model类中的属性名字不一致，则需要重写此方法。
- *  例: @{@"数据字段名称": @"Model类的属性名称"};
+ *  if the property name and the data source is not the same key, you need to overwrite this method.
+ *
+ *  @return key is datasource's key, value is property name, default return @{}.
  */
 - (NSDictionary *)mapping;
 
 /**
  *  if the model class name and the table name is different, you need to overwrite this method.
  *
- *  @return default returns the class name.
+ *  @return default return the class name.
  */
 + (NSString *)tableName;
 
