@@ -184,9 +184,12 @@ static NSString *dbName = @"";
         while ([rs next]) {
             [result addObject:[rs resultDictionary]];
         }
+        
+        [db close];
     }
     
-    [db close];
+    db = nil;
+    
     va_end(args);
     
     return result;
@@ -212,9 +215,11 @@ static NSString *dbName = @"";
         if ([rs next]) {
             totalRow = [[rs resultDictionary][@"totalRow"] integerValue];
         }
+    
+        [db close];
     }
     
-    [db close];
+    db = nil;
     
     return totalRow;
 }
@@ -261,9 +266,11 @@ static NSString *dbName = @"";
     
     if ([db open]) {
         success = [db executeUpdate:sql withArgumentsInArray:args];
+        
+        [db close];
     }
     
-    [db close];
+    db = nil;
     
     return success;
 }
