@@ -13,7 +13,7 @@ pod "FMDBHelper"
 ## Usage
 
 - Add #import "FMDBHelper.h" to your prefix.pch
--  Setting up the database file and the file must exist.
+-  Setting up the database file and the file must be exist.
 ``` objc
 [FMDBHelper setDataBaseName:@"demo.db"];
 ```
@@ -82,7 +82,7 @@ Create a model class and declare properties, property name must be consistent wi
 @end
 ```
 
-Read JSON and insert into the table. 
+Read JSON and insert it into the table. 
 
 ``` objc
 NSString *path = [[NSBundle mainBundle] pathForResource:@"demo" ofType:@"json"];
