@@ -56,6 +56,11 @@ static const void *IDKey;
     return self;
 }
 
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    //    NSLog(@"%@, %@", key, value);
+}
+
 - (NSString *)ID
 {
     return objc_getAssociatedObject(self, &IDKey);
