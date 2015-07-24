@@ -53,6 +53,8 @@ static const void *IDKey;
     
     [self setValuesForKeysWithDictionary:dict];
     
+    [self jc_settingsDefaultValueForHasNilValuePropertys];
+    
     return self;
 }
 
@@ -76,6 +78,8 @@ static const void *IDKey;
 - (NSMutableDictionary *)keyValues
 {
     NSDictionary *objectPropertys = [self objectPropertys];
+    
+    [self jc_settingsDefaultValueForHasNilValuePropertys];
     
     NSDictionary *keyValues = [self dictionaryWithValuesForKeys:self.jc_propertys];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:keyValues.count];
@@ -138,6 +142,29 @@ static const void *IDKey;
     free(properties);
     
     return allKeys;
+}
+
+- (void)jc_settingsDefaultValueForHasNilValuePropertys
+{
+    unsigned int count;
+    objc_property_t *properties = class_copyPropertyList([self class], &count);
+    
+    for(int i = 0 ; i < count ; i++){
+        NSString *propertyName = [NSString stringWithCString:property_getName(properties[i]) encoding:NSUTF8StringEncoding];
+        
+        if ([self valueForKey:propertyName] == nil) {
+            NSString *propertyType = [NSString stringWithCString:property_getAttributes(properties[i]) encoding:NSUTF8StringEncoding];
+            
+            if (([propertyType hasPrefix:@"T@\"NSString\""] || [propertyType hasPrefix:@"T@\"NSMutableString\""])) {
+                [self setValue:@"" forKey:propertyName];
+            }
+            else if ([propertyType hasPrefix:@"T@\"NSNumber\""]) {
+                [self setValue:[NSNumber numberWithInt:0] forKey:propertyName];
+            }
+        }
+    }
+    
+    free(properties);
 }
 
 - (BOOL)jc_isValid
