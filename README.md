@@ -4,8 +4,6 @@
 [![License](https://img.shields.io/cocoapods/l/FMDBHelper.svg?style=flat)](http://cocoadocs.org/docsets/FMDBHelper)
 [![Platform](https://img.shields.io/cocoapods/p/FMDBHelper.svg?style=flat)](http://cocoadocs.org/docsets/FMDBHelper)
 
-Easier to use FMDB, support ORM and JSON into the model class.
-
 <img width="320" src="./logo.png"> 
 
 ## Installation
