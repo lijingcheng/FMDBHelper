@@ -6,11 +6,11 @@
 #
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
-
+More easy to use fmdb, support the JSON into the model class
 Pod::Spec.new do |s|
   s.name             = "FMDBHelper"
   s.version          = "0.0.9"
-  s.summary          = "Easier to use FMDB, support the ORM and JSON into Model."
+  s.summary          = "Easier to use FMDB, support ORM and JSON into the model class."
   s.homepage         = "http://lijingcheng.github.io/"
   s.license          = 'MIT'
   s.author           = { "lijingcheng" => "bj_lijingcheng@163.com" }
