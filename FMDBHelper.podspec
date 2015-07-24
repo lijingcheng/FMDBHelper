@@ -6,7 +6,7 @@
 #
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
-More easy to use fmdb, support the JSON into the model class
+
 Pod::Spec.new do |s|
   s.name             = "FMDBHelper"
   s.version          = "0.1.0"
