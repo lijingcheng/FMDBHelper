@@ -24,7 +24,7 @@ static const void *IDKey;
     NSDictionary *mapping = [self mapping];
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:keyValues.count];
-    [keyValues enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+    [keyValues enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
         if ([obj jc_isValid]) {
             if ([key isEqualToString:identifier]) {
                 [dict setObject:obj forKey:NSStringFromSelector(@selector(ID))];
@@ -34,10 +34,23 @@ static const void *IDKey;
                 
                 if ([obj isKindOfClass:[NSString class]]) {
                     NSError *error = nil;
+                    
                     id jsonObject = [NSJSONSerialization JSONObjectWithData:[obj dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
                     
                     if (!error) {
                         obj = jsonObject;
+                    }
+                }
+                
+                if ([obj isKindOfClass:[NSNumber class]]) {
+                    objc_property_t property = class_getProperty(self.class, key.UTF8String);
+                    
+                    if (property != NULL) {
+                        NSString *propertyType = [NSString stringWithCString:property_getAttributes(property) encoding:NSUTF8StringEncoding];
+                        
+                        if ([propertyType containsString:@"String"]) {
+                            obj = [obj stringValue];
+                        }
                     }
                 }
                 
