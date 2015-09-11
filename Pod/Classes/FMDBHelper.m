@@ -30,6 +30,11 @@ static NSString *dbName = @"";
     }
 }
 
++ (BOOL)createTable:(NSString *)sql
+{
+    return [self executeUpdate:sql args:nil];
+}
+
 #pragma mark - insert
 
 + (BOOL)insert:(NSString *)sql

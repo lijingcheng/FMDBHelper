@@ -17,6 +17,11 @@
 + (void)setDataBaseName:(NSString *)name;
 
 /**
+ *  Use @sql create
+ */
++ (BOOL)createTable:(NSString *)sql;
+
+/**
  *  Use @sql insert
  */
 + (BOOL)insert:(NSString *)sql;
