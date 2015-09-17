@@ -48,8 +48,15 @@ static const void *IDKey;
                     if (property != NULL) {
                         NSString *propertyType = [NSString stringWithCString:property_getAttributes(property) encoding:NSUTF8StringEncoding];
                         
-                        if ([propertyType containsString:@"String"]) {
-                            obj = [obj stringValue];
+                        if ([propertyType respondsToSelector:@selector(containsString:)]) {
+                            if ([propertyType containsString:@"String"]) {
+                                obj = [obj stringValue];
+                            }
+                        }
+                        else {
+                            if (!NSEqualRanges([propertyType rangeOfString:@"String"], NSMakeRange(NSNotFound, 0))) {
+                                obj = [obj stringValue];
+                            }
                         }
                     }
                 }
