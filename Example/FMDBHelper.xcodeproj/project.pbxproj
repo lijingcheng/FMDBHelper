@@ -25,6 +25,7 @@
 		F30B6EB51AF4A560004AEFE8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = F30B6EB41AF4A560004AEFE8 /* User.m */; };
 		F30B6EB81AF4A56B004AEFE8 /* Dept.m in Sources */ = {isa = PBXBuildFile; fileRef = F30B6EB71AF4A56B004AEFE8 /* Dept.m */; };
 		F36156F31ABFFB5700DF7ED0 /* FMDBHelperSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F36156F21ABFFB5700DF7ED0 /* FMDBHelperSpec.m */; };
+		F38A5A321BCF5B1300433581 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F38A5A311BCF5B1300433581 /* Launch Screen.storyboard */; settings = {ASSET_TAGS = (); }; };
 		F3E9FAAA1AF75AF5000E9CDF /* demo.json in Resources */ = {isa = PBXBuildFile; fileRef = F3E9FAA91AF75AF5000E9CDF /* demo.json */; };
 		F3E9FAAB1AF75F50000E9CDF /* demo.json in Resources */ = {isa = PBXBuildFile; fileRef = F3E9FAA91AF75AF5000E9CDF /* demo.json */; };
 		F3E9FAAC1AF75F50000E9CDF /* demo.db in Resources */ = {isa = PBXBuildFile; fileRef = F3FC5DF71AAFEE7F002EE5B4 /* demo.db */; };
@@ -77,6 +78,7 @@
 		F30B6EB61AF4A56B004AEFE8 /* Dept.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dept.h; sourceTree = "<group>"; };
 		F30B6EB71AF4A56B004AEFE8 /* Dept.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dept.m; sourceTree = "<group>"; };
 		F36156F21ABFFB5700DF7ED0 /* FMDBHelperSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDBHelperSpec.m; sourceTree = "<group>"; };
+		F38A5A311BCF5B1300433581 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		F3E9FAA91AF75AF5000E9CDF /* demo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = demo.json; path = ../FMDBHelper/demo.json; sourceTree = "<group>"; };
 		F3FC5DF71AAFEE7F002EE5B4 /* demo.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = demo.db; path = ../FMDBHelper/demo.db; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -162,6 +164,7 @@
 				6003F595195388D20070C39A /* FMDBHelper-Info.plist */,
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
+				F38A5A311BCF5B1300433581 /* Launch Screen.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -261,7 +264,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = X;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = lijingcheng;
 				TargetAttributes = {
 					6003F5AD195388D20070C39A = {
@@ -293,6 +296,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F38A5A321BCF5B1300433581 /* Launch Screen.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F5A1195388D20070C39A /* Main_iPhone.storyboard in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
@@ -455,6 +459,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -520,6 +525,7 @@
 				GCC_PREFIX_HEADER = "FMDBHelper/FMDBHelper-Prefix.pch";
 				INFOPLIST_FILE = "FMDBHelper/FMDBHelper-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -537,6 +543,7 @@
 				GCC_PREFIX_HEADER = "FMDBHelper/FMDBHelper-Prefix.pch";
 				INFOPLIST_FILE = "FMDBHelper/FMDBHelper-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -562,6 +569,7 @@
 				);
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -584,6 +592,7 @@
 				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

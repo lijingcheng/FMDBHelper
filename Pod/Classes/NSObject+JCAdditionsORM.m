@@ -17,63 +17,65 @@ static const void *IDKey;
 
 - (instancetype)initWithDictionary:(NSDictionary *)keyValues
 {
-    NSAssert(keyValues, @"keyValues cannot be nil!");
-    NSAssert([keyValues isKindOfClass:[NSDictionary class]], @"keyValues must be kind of NSDictionary!");
-    
-    NSDictionary *objectPropertys = [self objectPropertys];
-    NSDictionary *mapping = [self mapping];
-    
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:keyValues.count];
-    [keyValues enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
-        if ([obj jc_isValid]) {
-            if ([key isEqualToString:identifier]) {
-                [dict setObject:obj forKey:NSStringFromSelector(@selector(ID))];
-            }
-            else {
-                NSString *useKey = mapping[key] ? : key;
-                
-                if ([obj isKindOfClass:[NSString class]]) {
-                    NSError *error = nil;
-                    
-                    id jsonObject = [NSJSONSerialization JSONObjectWithData:[obj dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
-                    
-                    if (!error) {
-                        obj = jsonObject;
-                    }
-                }
-                
-                if ([obj isKindOfClass:[NSNumber class]]) {
-                    objc_property_t property = class_getProperty(self.class, key.UTF8String);
-                    
-                    if (property != NULL) {
-                        NSString *propertyType = [NSString stringWithCString:property_getAttributes(property) encoding:NSUTF8StringEncoding];
-                        
-                        if ([propertyType respondsToSelector:@selector(containsString:)]) {
-                            if ([propertyType containsString:@"String"]) {
-                                obj = [obj stringValue];
-                            }
-                        }
-                        else {
-                            if (!NSEqualRanges([propertyType rangeOfString:@"String"], NSMakeRange(NSNotFound, 0))) {
-                                obj = [obj stringValue];
-                            }
-                        }
-                    }
-                }
-                
-                if ([obj isKindOfClass:[NSDictionary class]] && objectPropertys[useKey]) {
-                    [dict setObject:[[objectPropertys[useKey] alloc] initWithDictionary:obj] forKey:useKey];
+    if (self = [self init]) {
+        NSAssert(keyValues, @"keyValues cannot be nil!");
+        NSAssert([keyValues isKindOfClass:[NSDictionary class]], @"keyValues must be kind of NSDictionary!");
+        
+        NSDictionary *objectPropertys = [self objectPropertys];
+        NSDictionary *mapping = [self mapping];
+        
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:keyValues.count];
+        [keyValues enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+            if ([obj jc_isValid]) {
+                if ([key isEqualToString:identifier]) {
+                    [dict setObject:obj forKey:NSStringFromSelector(@selector(ID))];
                 }
                 else {
-                    [dict setObject:obj forKey:useKey];
+                    NSString *useKey = mapping[key] ? : key;
+                    
+                    if ([obj isKindOfClass:[NSString class]]) {
+                        NSError *error = nil;
+                        
+                        id jsonObject = [NSJSONSerialization JSONObjectWithData:[obj dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
+                        
+                        if (!error) {
+                            obj = jsonObject;
+                        }
+                    }
+                    
+                    if ([obj isKindOfClass:[NSNumber class]]) {
+                        objc_property_t property = class_getProperty(self.class, key.UTF8String);
+                        
+                        if (property != NULL) {
+                            NSString *propertyType = [NSString stringWithCString:property_getAttributes(property) encoding:NSUTF8StringEncoding];
+                            
+                            if ([propertyType respondsToSelector:@selector(containsString:)]) {
+                                if ([propertyType containsString:@"String"]) {
+                                    obj = [obj stringValue];
+                                }
+                            }
+                            else {
+                                if (!NSEqualRanges([propertyType rangeOfString:@"String"], NSMakeRange(NSNotFound, 0))) {
+                                    obj = [obj stringValue];
+                                }
+                            }
+                        }
+                    }
+                    
+                    if ([obj isKindOfClass:[NSDictionary class]] && objectPropertys[useKey]) {
+                        [dict setObject:[[objectPropertys[useKey] alloc] initWithDictionary:obj] forKey:useKey];
+                    }
+                    else {
+                        [dict setObject:obj forKey:useKey];
+                    }
                 }
             }
-        }
-    }];
-    
-    [self setValuesForKeysWithDictionary:dict];
-    
-    [self jc_settingsDefaultValueForHasNilValuePropertys];
+        }];
+        
+        [self setValuesForKeysWithDictionary:dict];
+        
+        [self jc_settingsDefaultValueForHasNilValuePropertys];
+    }
     
     return self;
 }
