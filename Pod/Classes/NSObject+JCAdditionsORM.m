@@ -26,55 +26,39 @@ static const void *IDKey;
         
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:keyValues.count];
         [keyValues enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+            NSString *useKey = mapping[key] ? : key;
+            
+            if ([useKey isEqualToString:identifier]) {
+                useKey = NSStringFromSelector(@selector(ID));
+            }
+            
             if ([obj jc_isValid]) {
-                if ([key isEqualToString:identifier]) {
-                    [dict setObject:obj forKey:NSStringFromSelector(@selector(ID))];
-                }
-                else {
-                    NSString *useKey = mapping[key] ? : key;
+                if ([obj isKindOfClass:[NSString class]]) {
+                    NSError *error = nil;
                     
-                    if ([obj isKindOfClass:[NSString class]]) {
-                        NSError *error = nil;
-                        
-                        id jsonObject = [NSJSONSerialization JSONObjectWithData:[obj dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
-                        
-                        if (!error) {
-                            obj = jsonObject;
-                        }
-                    }
+                    id jsonObject = [NSJSONSerialization JSONObjectWithData:[obj dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
                     
-                    if ([obj isKindOfClass:[NSNumber class]]) {
-                        objc_property_t property = class_getProperty(self.class, key.UTF8String);
-                        
-                        if (property != NULL) {
-                            NSString *propertyType = [NSString stringWithCString:property_getAttributes(property) encoding:NSUTF8StringEncoding];
-                            
-                            if ([propertyType respondsToSelector:@selector(containsString:)]) {
-                                if ([propertyType containsString:@"String"]) {
-                                    obj = [obj stringValue];
-                                }
-                            }
-                            else {
-                                if (!NSEqualRanges([propertyType rangeOfString:@"String"], NSMakeRange(NSNotFound, 0))) {
-                                    obj = [obj stringValue];
-                                }
-                            }
-                        }
-                    }
-                    
-                    if ([obj isKindOfClass:[NSDictionary class]] && objectPropertys[useKey]) {
-                        [dict setObject:[[objectPropertys[useKey] alloc] initWithDictionary:obj] forKey:useKey];
-                    }
-                    else {
-                        [dict setObject:obj forKey:useKey];
+                    if (!error) {
+                        obj = jsonObject;
                     }
                 }
+                
+                if ([obj isKindOfClass:[NSNumber class]] && [self jc_isStringProperty:key]) {
+                    obj = [obj stringValue];
+                }
+                
+                if (objectPropertys[useKey] && [obj isKindOfClass:[NSDictionary class]]) {
+                    obj = [[objectPropertys[useKey] alloc] initWithDictionary:obj];
+                }
+                
+                [dict setObject:obj forKey:useKey];
+            }
+            else {
+                [dict setObject:[self jc_defaultValueForKey:useKey] forKey:key];
             }
         }];
         
         [self setValuesForKeysWithDictionary:dict];
-        
-        [self jc_settingsDefaultValueForHasNilValuePropertys];
     }
     
     return self;
@@ -82,7 +66,7 @@ static const void *IDKey;
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
-    //    NSLog(@"%@, %@", key, value);
+    //NSLog(@"%@, %@", key, value);
 }
 
 - (NSString *)ID
@@ -101,31 +85,32 @@ static const void *IDKey;
 {
     NSDictionary *objectPropertys = [self objectPropertys];
     
-    [self jc_settingsDefaultValueForHasNilValuePropertys];
-    
     NSDictionary *keyValues = [self dictionaryWithValuesForKeys:self.jc_propertys];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:keyValues.count];
     
     [keyValues enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if ([obj jc_isValid]) {
+            if (objectPropertys[key]) {
+                obj = [obj keyValues];
+            }
+            
             if ([key isEqualToString:NSStringFromSelector(@selector(ID))]) {
-                [dict setObject:obj forKey:identifier];
+                key = identifier;
             }
-            else {
-                if (objectPropertys[key]) {
-                    obj = [obj keyValues];
-                }
+            
+            if ([obj isKindOfClass:[NSArray class]] || [obj isKindOfClass:[NSDictionary class]]) {
+                NSError *error = nil;
+                NSData *json = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&error];
                 
-                if ([obj isKindOfClass:[NSArray class]] || [obj isKindOfClass:[NSDictionary class]]) {
-                    NSError *error = nil;
-                    NSData *json = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&error];
-                    if (!error) {
-                        obj = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
-                    }
+                if (!error) {
+                    obj = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
                 }
-                
-                [dict setObject:obj forKey:key];
             }
+            
+            [dict setObject:obj forKey:key];
+        }
+        else {
+            [dict setObject:[self jc_defaultValueForKey:key] forKey:key];
         }
     }];
     
@@ -149,6 +134,66 @@ static const void *IDKey;
 
 #pragma mark -
 
+- (id)jc_defaultValueForKey:(NSString *)key
+{
+    id defaultValue = [NSNull null];
+    
+    objc_property_t property = class_getProperty([self class], key.UTF8String);
+    
+    if (property != NULL) {
+        NSString *propertyType = [NSString stringWithCString:property_getAttributes(property) encoding:NSUTF8StringEncoding];
+        
+        if ([propertyType hasPrefix:@"T@\"NSString\""]) {
+            defaultValue = @"";
+        }
+        else if ([propertyType hasPrefix:@"T@\"NSMutableString\""]) {
+            defaultValue = [NSMutableString string];
+        }
+        else if ([propertyType hasPrefix:@"T@\"NSDictionary\""]) {
+            defaultValue = @{};
+        }
+        else if ([propertyType hasPrefix:@"T@\"NSMutableDictionary\""]) {
+            defaultValue = [NSMutableDictionary dictionary];
+        }
+        else if ([propertyType hasPrefix:@"T@\"NSArray\""]) {
+            defaultValue = @[];
+        }
+        else if ([propertyType hasPrefix:@"T@\"NSMutableArray\""]) {
+            defaultValue = [NSMutableArray array];
+        }
+        else if ([propertyType hasPrefix:@"T@\"NSNumber\""]) {
+            defaultValue = [NSNumber numberWithInt:0];
+        }
+    }
+    
+    return defaultValue;
+}
+
+
+- (BOOL)jc_isStringProperty:(NSString *)key
+{
+    BOOL isStringProperty = NO;
+    
+    objc_property_t property = class_getProperty(self.class, key.UTF8String);
+    
+    if (property != NULL) {
+        NSString *propertyType = [NSString stringWithCString:property_getAttributes(property) encoding:NSUTF8StringEncoding];
+        
+        if ([propertyType respondsToSelector:@selector(containsString:)]) {
+            if ([propertyType containsString:@"String"]) {
+                isStringProperty = YES;
+            }
+        }
+        else {
+            if (!NSEqualRanges([propertyType rangeOfString:@"String"], NSMakeRange(NSNotFound, 0))) {
+                isStringProperty = YES;
+            }
+        }
+    }
+    
+    return isStringProperty;
+}
+
 - (NSMutableArray *)jc_propertys
 {
     NSMutableArray *allKeys = [[NSMutableArray alloc] initWithCapacity:10];
@@ -164,29 +209,6 @@ static const void *IDKey;
     free(properties);
     
     return allKeys;
-}
-
-- (void)jc_settingsDefaultValueForHasNilValuePropertys
-{
-    unsigned int count;
-    objc_property_t *properties = class_copyPropertyList([self class], &count);
-    
-    for(int i = 0 ; i < count ; i++){
-        NSString *propertyName = [NSString stringWithCString:property_getName(properties[i]) encoding:NSUTF8StringEncoding];
-        
-        if ([self valueForKey:propertyName] == nil) {
-            NSString *propertyType = [NSString stringWithCString:property_getAttributes(properties[i]) encoding:NSUTF8StringEncoding];
-            
-            if (([propertyType hasPrefix:@"T@\"NSString\""] || [propertyType hasPrefix:@"T@\"NSMutableString\""])) {
-                [self setValue:@"" forKey:propertyName];
-            }
-            else if ([propertyType hasPrefix:@"T@\"NSNumber\""]) {
-                [self setValue:[NSNumber numberWithInt:0] forKey:propertyName];
-            }
-        }
-    }
-    
-    free(properties);
 }
 
 - (BOOL)jc_isValid
