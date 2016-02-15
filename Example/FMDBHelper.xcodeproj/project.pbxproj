@@ -25,7 +25,6 @@
 		F30B6EB51AF4A560004AEFE8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = F30B6EB41AF4A560004AEFE8 /* User.m */; };
 		F30B6EB81AF4A56B004AEFE8 /* Dept.m in Sources */ = {isa = PBXBuildFile; fileRef = F30B6EB71AF4A56B004AEFE8 /* Dept.m */; };
 		F36156F31ABFFB5700DF7ED0 /* FMDBHelperSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F36156F21ABFFB5700DF7ED0 /* FMDBHelperSpec.m */; };
-		F38A5A321BCF5B1300433581 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F38A5A311BCF5B1300433581 /* Launch Screen.storyboard */; settings = {ASSET_TAGS = (); }; };
 		F3E9FAAA1AF75AF5000E9CDF /* demo.json in Resources */ = {isa = PBXBuildFile; fileRef = F3E9FAA91AF75AF5000E9CDF /* demo.json */; };
 		F3E9FAAB1AF75F50000E9CDF /* demo.json in Resources */ = {isa = PBXBuildFile; fileRef = F3E9FAA91AF75AF5000E9CDF /* demo.json */; };
 		F3E9FAAC1AF75F50000E9CDF /* demo.db in Resources */ = {isa = PBXBuildFile; fileRef = F3FC5DF71AAFEE7F002EE5B4 /* demo.db */; };
@@ -78,7 +77,6 @@
 		F30B6EB61AF4A56B004AEFE8 /* Dept.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dept.h; sourceTree = "<group>"; };
 		F30B6EB71AF4A56B004AEFE8 /* Dept.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dept.m; sourceTree = "<group>"; };
 		F36156F21ABFFB5700DF7ED0 /* FMDBHelperSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDBHelperSpec.m; sourceTree = "<group>"; };
-		F38A5A311BCF5B1300433581 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		F3E9FAA91AF75AF5000E9CDF /* demo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = demo.json; path = ../FMDBHelper/demo.json; sourceTree = "<group>"; };
 		F3FC5DF71AAFEE7F002EE5B4 /* demo.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = demo.db; path = ../FMDBHelper/demo.db; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,7 +162,6 @@
 				6003F595195388D20070C39A /* FMDBHelper-Info.plist */,
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
-				F38A5A311BCF5B1300433581 /* Launch Screen.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -227,6 +224,7 @@
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
 				7B5236790034C5C6D095DC16 /* Copy Pods Resources */,
+				DE08DCB712FCA3F7A7322BCD /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -246,6 +244,7 @@
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
 				38B590879A4960D7829CC387 /* Copy Pods Resources */,
+				15B0C190D44D7B44D830B0B1 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -296,7 +295,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F38A5A321BCF5B1300433581 /* Launch Screen.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F5A1195388D20070C39A /* Main_iPhone.storyboard in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
@@ -318,6 +316,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		15B0C190D44D7B44D830B0B1 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		38B590879A4960D7829CC387 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -361,6 +374,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DE08DCB712FCA3F7A7322BCD /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FMDBHelper/Pods-FMDBHelper-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F3FC3AEE92CA57133E1CB7F8 /* Check Pods Manifest.lock */ = {
@@ -557,7 +585,6 @@
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FMDBHelper.app/FMDBHelper";
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
@@ -584,7 +611,6 @@
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FMDBHelper.app/FMDBHelper";
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
