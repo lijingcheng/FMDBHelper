@@ -180,14 +180,10 @@ static const void *IDKey;
         NSString *propertyType = [NSString stringWithCString:property_getAttributes(property) encoding:NSUTF8StringEncoding];
         
         if ([propertyType respondsToSelector:@selector(containsString:)]) {
-            if ([propertyType containsString:@"String"]) {
-                isStringProperty = YES;
-            }
+            isStringProperty = [propertyType containsString:@"String"];
         }
         else {
-            if (!NSEqualRanges([propertyType rangeOfString:@"String"], NSMakeRange(NSNotFound, 0))) {
-                isStringProperty = YES;
-            }
+            isStringProperty = !NSEqualRanges([propertyType rangeOfString:@"String"], NSMakeRange(NSNotFound, 0));
         }
     }
     
