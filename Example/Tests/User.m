@@ -7,6 +7,8 @@
 //
 
 #import "User.h"
+#import "Dept.h"
+#import "Dog.h"
 
 @implementation User
 
@@ -18,6 +20,11 @@
 - (NSDictionary *)objectPropertys
 {
     return @{@"dept": [Dept class]};
+}
+
+- (NSDictionary *)genericForArray
+{
+    return @{@"dogs": [Dog class]};
 }
 
 + (NSString *)tableName

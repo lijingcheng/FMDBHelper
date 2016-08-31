@@ -9,6 +9,7 @@
 #import "FMDBHelper.h"
 #import "User.h"
 #import "Dept.h"
+#import "Dog.h"
 
 SPEC_BEGIN(FMDBHelperSpec)
 
@@ -30,7 +31,7 @@ describe(@"FMDBHelper", ^{
         });
         
         it(@"insert:", ^{
-            NSString *sql = @"INSERT OR REPLACE INTO sys_user (id,name,age,birthday,dept) VALUES ('id1','zhangsan',15,'2000/03/22','')";
+            NSString *sql = @"INSERT OR REPLACE INTO sys_user (id,name,age,birthday,dept,dogs) VALUES ('id1','zhangsan',15,'2000/03/22','','')";
             BOOL result = [FMDBHelper insert:sql];
             
             [[theValue(result) should] beYes];
@@ -38,7 +39,7 @@ describe(@"FMDBHelper", ^{
         
         it(@"insertObject:", ^{
             User *user = [[User alloc] initWithDictionary:keyValues];
-
+            
             BOOL result = [FMDBHelper insertObject:user];
             
             [[theValue(result) should] beYes];

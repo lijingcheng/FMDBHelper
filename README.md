@@ -27,7 +27,8 @@ user (
   name text,
   age integer,
   birthday text,
-  dept text
+  dept text,
+  dogs text
 )
 ```
 or have a JSON like this:
@@ -41,7 +42,11 @@ or have a JSON like this:
     "id": "f6g7h8i9j0",
     "name": "dev",
     "manager": "X"
-  }
+  },
+  "dogs":[
+    {"id": "0x0x0x0x","name": "ahuang","age": "15"},
+    {"id": "1x1x1x1x","name": "xhei","age": "6"}
+  ]
 }
 ```
 
@@ -55,25 +60,32 @@ Create a model class and declare properties, property name must be consistent wi
 @property (nonatomic, assign) NSInteger age;
 @property (nonatomic, copy) NSString *birthday;
 @property (nonatomic, strong) Dept *dept;
+@property (nonatomic, copy) NSArray<Dog *> *dogs;
 
 @end
 
 //User.m
 @implementation User
 
-//if the property name and the JSON keys is not the same key, you need to overwrite this method.
+// if the property name and the JSON keys is not the same key, you need to overwrite this method.
 - (NSDictionary *)mapping
 {
     return @{@"username": @"name"};
 }
 
-//if the property type is a custom class, you need to overwrite this method.
+// if the property type is a custom class, you need to overwrite this method.
 - (NSDictionary *)objectPropertys
 {
     return @{@"dept": [Dept class]};
 }
 
-//if the model class name and the table name is different, you need to overwrite this method
+// if the property type is a NSArray<...>, you need to overwrite this method.
+- (NSDictionary *)genericForArray
+{
+    return @{@"dogs": [Dog class]};
+}
+
+// if the model class name and the table name is different, you need to overwrite this method
 + (NSString *)tableName
 {
     return @"sys_user";
@@ -106,10 +118,6 @@ NSLog(@"%@, %@, %@", user.dept.ID, user.dept.name, user.dept.manager);
 ```
 
 **More usage reference test case.**
-
-## Attention
-
-Does not support model collections, such as NSArray&lt;User&gt;* users;
 
 ## Author
 

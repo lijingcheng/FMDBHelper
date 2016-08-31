@@ -7,5 +7,9 @@
     "id": "f6g7h8i9j0",
     "name": "dev",
     "manager": "X"
-  }
+  },
+  "dogs":[
+    {"id": "0x0x0x0x","name": "ahuang","age": "15"},
+    {"id": "1x1x1x1x","name": "xhei","age": "6"}
+  ]
 }

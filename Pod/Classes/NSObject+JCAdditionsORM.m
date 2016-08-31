@@ -22,36 +22,47 @@ static const void *IDKey;
         NSAssert([keyValues isKindOfClass:[NSDictionary class]], @"keyValues must be kind of NSDictionary!");
         
         NSDictionary *objectPropertys = [self objectPropertys];
+        NSDictionary *genericForArray = [self genericForArray];
         NSDictionary *mapping = [self mapping];
         
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:keyValues.count];
-        [keyValues enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+        [keyValues enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
             NSString *useKey = mapping[key] ? : key;
             
             if ([useKey isEqualToString:identifier]) {
                 useKey = NSStringFromSelector(@selector(ID));
             }
             
-            if ([obj jc_isValid]) {
-                if ([obj isKindOfClass:[NSString class]]) {
+            if ([value jc_isValid]) {
+                if ([value isKindOfClass:[NSString class]]) {
                     NSError *error = nil;
                     
-                    id jsonObject = [NSJSONSerialization JSONObjectWithData:[obj dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
+                    id jsonObject = [NSJSONSerialization JSONObjectWithData:[value dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
                     
                     if (!error) {
-                        obj = jsonObject;
+                        value = jsonObject;
                     }
                 }
                 
-                if ([obj isKindOfClass:[NSNumber class]] && [self jc_isStringProperty:key]) {
-                    obj = [obj stringValue];
+                if ([value isKindOfClass:[NSNumber class]] && [self jc_isStringProperty:key]) {
+                    value = [value stringValue];
                 }
                 
-                if (objectPropertys[useKey] && [obj isKindOfClass:[NSDictionary class]]) {
-                    obj = [[objectPropertys[useKey] alloc] initWithDictionary:obj];
+                if (objectPropertys[useKey] && [value isKindOfClass:[NSDictionary class]]) {
+                    value = [[objectPropertys[useKey] alloc] initWithDictionary:value];
                 }
                 
-                [dict setObject:obj forKey:useKey];
+                if (genericForArray[useKey] && [value isKindOfClass:[NSArray class]]) {
+                    NSMutableArray *ary = [NSMutableArray array];
+                    
+                    [value enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        [ary addObject:[[genericForArray[useKey] alloc] initWithDictionary:obj]];
+                    }];
+                    
+                    value = ary;
+                }
+                
+                [dict setObject:value forKey:useKey];
             }
             else {
                 [dict setObject:[self jc_defaultValueForKey:useKey] forKey:key];
@@ -84,30 +95,41 @@ static const void *IDKey;
 - (NSMutableDictionary *)keyValues
 {
     NSDictionary *objectPropertys = [self objectPropertys];
+    NSDictionary *genericForArray = [self genericForArray];
     
     NSDictionary *keyValues = [self dictionaryWithValuesForKeys:self.jc_propertys];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:keyValues.count];
     
-    [keyValues enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        if ([obj jc_isValid]) {
+    [keyValues enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+        if ([value jc_isValid]) {
             if (objectPropertys[key]) {
-                obj = [obj keyValues];
+                value = [value keyValues];
+            }
+            
+            if (genericForArray[key]) {
+                NSMutableArray *ary = [NSMutableArray array];
+                
+                [value enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [ary addObject:[obj keyValues]];
+                }];
+                
+                value = ary;
             }
             
             if ([key isEqualToString:NSStringFromSelector(@selector(ID))]) {
                 key = identifier;
             }
             
-            if ([obj isKindOfClass:[NSArray class]] || [obj isKindOfClass:[NSDictionary class]]) {
+            if ([value isKindOfClass:[NSArray class]] || [value isKindOfClass:[NSDictionary class]]) {
                 NSError *error = nil;
-                NSData *json = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&error];
+                NSData *json = [NSJSONSerialization dataWithJSONObject:value options:NSJSONWritingPrettyPrinted error:&error];
                 
                 if (!error) {
-                    obj = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+                    value = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
                 }
             }
             
-            [dict setObject:obj forKey:key];
+            [dict setObject:value forKey:key];
         }
         else {
             [dict setObject:[self jc_defaultValueForKey:key] forKey:key];
@@ -118,6 +140,11 @@ static const void *IDKey;
 }
 
 - (NSDictionary *)objectPropertys
+{
+    return @{};
+}
+
+- (NSDictionary *)genericForArray
 {
     return @{};
 }

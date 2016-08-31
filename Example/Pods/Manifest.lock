@@ -4,7 +4,7 @@ PODS:
   - FMDB/common (2.5)
   - FMDB/standard (2.5):
     - FMDB/common
-  - FMDBHelper (0.1.5):
+  - FMDBHelper (0.1.7):
     - FMDB (= 2.5)
   - Kiwi (2.4.0)
 
@@ -19,7 +19,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
-  FMDBHelper: 8c34bb80242bf75819fe82a41150735b0422638c
+  FMDBHelper: 184ed2a2e9eee97a1251786b4e31d191a120192b
   Kiwi: f49c9d54b28917df5928fe44968a39ed198cb8a8
 
 COCOAPODS: 0.39.0
