@@ -115,6 +115,12 @@ User *user = [[User alloc] initWithDictionary:result];
 
 NSLog(@"%@, %@, %ld, %@", user.ID, user.name, (long)user.age, user.birthday);
 NSLog(@"%@, %@, %@", user.dept.ID, user.dept.name, user.dept.manager);
+
+NSArray<Dog *> *dogs = user.dogs;
+
+[dogs enumerateObjectsUsingBlock:^(Dog * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSLog(@"%@,%@,%ld", obj.ID, obj.name, obj.age);
+}];
 ```
 
 **More usage reference test case.**
