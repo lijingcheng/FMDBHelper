@@ -34,13 +34,17 @@ static const void *IDKey;
             }
             
             if ([value jc_isValid]) {
+                // for sqlite
                 if ([value isKindOfClass:[NSString class]]) {
-                    NSError *error = nil;
-                    
-                    id jsonObject = [NSJSONSerialization JSONObjectWithData:[value dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:&error];
-                    
-                    if (!error) {
-                        value = jsonObject;
+                    // to filter part of the string
+                    if ([value hasPrefix:@"["] || [value hasPrefix:@"{"]) {
+                        NSError *error = nil;
+                        
+                        id jsonObject = [NSJSONSerialization JSONObjectWithData:[value dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
+                        
+                        if (!error) {
+                            value = jsonObject;
+                        }
                     }
                 }
                 
@@ -120,6 +124,7 @@ static const void *IDKey;
                 key = identifier;
             }
             
+            // for sqlite
             if ([value isKindOfClass:[NSArray class]] || [value isKindOfClass:[NSDictionary class]]) {
                 NSError *error = nil;
                 NSData *json = [NSJSONSerialization dataWithJSONObject:value options:NSJSONWritingPrettyPrinted error:&error];

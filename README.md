@@ -10,6 +10,12 @@
 
 pod "FMDBHelper"
 
+## Performance
+
+<img width="500" src="./performance.png"> 
+
+support for sqlite rw.
+
 ## Usage
 
 - Add #import "FMDBHelper.h" to your prefix.pch

@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "FMDBHelper"
-  s.version          = "0.1.7"
+  s.version          = "0.1.8"
   s.summary          = "Easier to use FMDB, support ORM and JSON into the model class."
   s.homepage         = "http://lijingcheng.github.io/"
   s.license          = 'MIT'
