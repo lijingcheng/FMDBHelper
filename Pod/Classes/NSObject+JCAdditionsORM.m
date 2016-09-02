@@ -35,16 +35,13 @@ static const void *IDKey;
             
             if ([value jc_isValid]) {
                 // for sqlite
-                if ([value isKindOfClass:[NSString class]]) {
-                    // to filter part of the string
-                    if ([value hasPrefix:@"["] || [value hasPrefix:@"{"]) {
-                        NSError *error = nil;
-                        
-                        id jsonObject = [NSJSONSerialization JSONObjectWithData:[value dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
-                        
-                        if (!error) {
-                            value = jsonObject;
-                        }
+                if ([value isKindOfClass:[NSString class]] && [NSJSONSerialization isValidJSONObject:value]) {
+                    NSError *error = nil;
+                    
+                    id jsonObject = [NSJSONSerialization JSONObjectWithData:[value dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
+                    
+                    if (!error) {
+                        value = jsonObject;
                     }
                 }
                 
@@ -122,16 +119,6 @@ static const void *IDKey;
             
             if ([key isEqualToString:NSStringFromSelector(@selector(ID))]) {
                 key = identifier;
-            }
-            
-            // for sqlite
-            if ([value isKindOfClass:[NSArray class]] || [value isKindOfClass:[NSDictionary class]]) {
-                NSError *error = nil;
-                NSData *json = [NSJSONSerialization dataWithJSONObject:value options:NSJSONWritingPrettyPrinted error:&error];
-                
-                if (!error) {
-                    value = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
-                }
             }
             
             [dict setObject:value forKey:key];
