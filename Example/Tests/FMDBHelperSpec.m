@@ -31,7 +31,7 @@ describe(@"FMDBHelper", ^{
         });
         
         it(@"insert:", ^{
-            NSString *sql = @"INSERT OR REPLACE INTO sys_user (id,name,age,birthday,dept,dogs) VALUES ('id1','zhangsan',15,'2000/03/22','','')";
+            NSString *sql = @"INSERT OR REPLACE INTO sys_user (id,name,age,birthday,dept,dogs,nums) VALUES ('id1','zhangsan',15,'2000/03/22','','','')";
             BOOL result = [FMDBHelper insert:sql];
             
             [[theValue(result) should] beYes];

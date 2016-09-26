@@ -74,26 +74,22 @@ Create a model class and declare properties, property name must be consistent wi
 @implementation User
 
 // if the property name and the JSON keys is not the same key, you need to overwrite this method.
-- (NSDictionary *)mapping
-{
+- (NSDictionary *)mapping {
     return @{@"username": @"name"};
 }
 
 // if the property type is a custom class, you need to overwrite this method.
-- (NSDictionary *)objectPropertys
-{
+- (NSDictionary *)objectPropertys {
     return @{@"dept": [Dept class]};
 }
 
 // if the property type is a NSArray<...>, you need to overwrite this method.
-- (NSDictionary *)genericForArray
-{
+- (NSDictionary *)genericForArray {
     return @{@"dogs": [Dog class]};
 }
 
 // if the model class name and the table name is different, you need to overwrite this method
-+ (NSString *)tableName
-{
++ (NSString *)tableName {
     return @"sys_user";
 }
 

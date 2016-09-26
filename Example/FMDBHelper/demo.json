@@ -11,5 +11,9 @@
   "dogs":[
     {"id": "0x0x0x0x","name": "ahuang","age": "15"},
     {"id": "1x1x1x1x","name": "xhei","age": "6"}
+  ],
+  "nums":[
+    123,
+    234
   ]
 }

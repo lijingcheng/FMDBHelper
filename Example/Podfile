@@ -1,8 +1,8 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'Tests', :exclusive => true do
-  pod "FMDB", "2.5"
+  pod "FMDB", "2.6.2"
   pod "FMDBHelper", :path => "../"
 
-  pod 'Kiwi'
+  pod "Kiwi", "2.4.0"
 end

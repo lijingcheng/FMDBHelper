@@ -12,23 +12,19 @@
 
 @implementation User
 
-- (NSDictionary *)mapping
-{
+- (NSDictionary *)mapping {
     return @{@"username": @"name"};
 }
 
-- (NSDictionary *)objectPropertys
-{
+- (NSDictionary *)objectPropertys {
     return @{@"dept": [Dept class]};
 }
 
-- (NSDictionary *)genericForArray
-{
+- (NSDictionary *)genericForArray {
     return @{@"dogs": [Dog class]};
 }
 
-+ (NSString *)tableName
-{
++ (NSString *)tableName {
     return @"sys_user";
 }
 

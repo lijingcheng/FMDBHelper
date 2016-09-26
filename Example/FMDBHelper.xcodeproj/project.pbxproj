@@ -10,18 +10,47 @@
 	<string>46</string>
 	<key>objects</key>
 	<dict>
-		<key>02CC1F1DBDC7E6D10D0F61FB</key>
+		<key>2F691114EC6C6A606A306EDC</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
+			<string>PBXShellScriptBuildPhase</string>
 			<key>name</key>
-			<string>Pods-Tests.release.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig</string>
+			<string>Check Pods Manifest.lock</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
+if [[ $? != 0 ]] ; then
+    cat &lt;&lt; EOM
+error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
+EOM
+    exit 1
+fi
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>2FA82A018DF51FB861EE1229</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>A96A61403B63A359045E7413</string>
+				<string>A7AB9E4BD1983C0D09F7C05B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -39,6 +68,30 @@
 			<string>../LICENSE</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>439B9B8AC2F0A236F6400788</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Copy Pods Resources</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-resources.sh"
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
 		</dict>
 		<key>46C64971B03CB43F6779BD88</key>
 		<dict>
@@ -70,30 +123,6 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>5E9B0E02BADC29932E53C610</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Copy Pods Resources</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-resources.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
 		<key>6003F581195388D10070C39A</key>
 		<dict>
 			<key>children</key>
@@ -103,7 +132,7 @@
 				<string>6003F5B5195388D20070C39A</string>
 				<string>6003F58C195388D20070C39A</string>
 				<string>6003F58B195388D20070C39A</string>
-				<string>68DF53F0257F4CC7F3ECCB8B</string>
+				<string>2FA82A018DF51FB861EE1229</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -117,7 +146,7 @@
 				<key>CLASSPREFIX</key>
 				<string>X</string>
 				<key>LastUpgradeCheck</key>
-				<string>0700</string>
+				<string>0800</string>
 				<key>ORGANIZATIONNAME</key>
 				<string>lijingcheng</string>
 				<key>TargetAttributes</key>
@@ -284,7 +313,7 @@
 				<string>6003F58F195388D20070C39A</string>
 				<string>6003F591195388D20070C39A</string>
 				<string>6003F5AF195388D20070C39A</string>
-				<string>9981F2A4E7155F14311B3FEF</string>
+				<string>BD5CA7275C94B55620C94B21</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -595,7 +624,7 @@
 				<string>6003F5B0195388D20070C39A</string>
 				<string>6003F5B2195388D20070C39A</string>
 				<string>6003F5B1195388D20070C39A</string>
-				<string>BCC269AC30D97169145F6A72</string>
+				<string>76E56F089AA187E6B3E9473E</string>
 			</array>
 			<key>isa</key>
 			<string>PBXFrameworksBuildPhase</string>
@@ -623,12 +652,12 @@
 			<string>6003F5C2195388D20070C39A</string>
 			<key>buildPhases</key>
 			<array>
-				<string>6BFDDB77EB7A23EEF2DCF5F3</string>
+				<string>2F691114EC6C6A606A306EDC</string>
 				<string>6003F5AA195388D20070C39A</string>
 				<string>6003F5AB195388D20070C39A</string>
 				<string>6003F5AC195388D20070C39A</string>
-				<string>DFD844A79C799FF36C46A9BF</string>
-				<string>5E9B0E02BADC29932E53C610</string>
+				<string>7DE46BB8FAC90D065904A7C4</string>
+				<string>439B9B8AC2F0A236F6400788</string>
 			</array>
 			<key>buildRules</key>
 			<array/>
@@ -821,22 +850,32 @@
 				<string>YES</string>
 				<key>CLANG_WARN_ENUM_CONVERSION</key>
 				<string>YES</string>
+				<key>CLANG_WARN_INFINITE_RECURSION</key>
+				<string>YES</string>
 				<key>CLANG_WARN_INT_CONVERSION</key>
 				<string>YES</string>
 				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
 				<string>YES_ERROR</string>
+				<key>CLANG_WARN_SUSPICIOUS_MOVE</key>
+				<string>YES</string>
+				<key>CLANG_WARN_UNREACHABLE_CODE</key>
+				<string>YES</string>
 				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
 				<string>YES</string>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
 				<string>iPhone Developer</string>
 				<key>COPY_PHASE_STRIP</key>
 				<string>NO</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
 				<key>ENABLE_TESTABILITY</key>
 				<string>YES</string>
 				<key>GCC_C_LANGUAGE_STANDARD</key>
 				<string>gnu99</string>
 				<key>GCC_DYNAMIC_NO_PIC</key>
 				<string>NO</string>
+				<key>GCC_NO_COMMON_BLOCKS</key>
+				<string>YES</string>
 				<key>GCC_OPTIMIZATION_LEVEL</key>
 				<string>0</string>
 				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
@@ -859,7 +898,7 @@
 				<key>GCC_WARN_UNUSED_VARIABLE</key>
 				<string>YES</string>
 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
+				<string>8.0</string>
 				<key>ONLY_ACTIVE_ARCH</key>
 				<string>YES</string>
 				<key>SDKROOT</key>
@@ -896,10 +935,16 @@
 				<string>YES</string>
 				<key>CLANG_WARN_ENUM_CONVERSION</key>
 				<string>YES</string>
+				<key>CLANG_WARN_INFINITE_RECURSION</key>
+				<string>YES</string>
 				<key>CLANG_WARN_INT_CONVERSION</key>
 				<string>YES</string>
 				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
 				<string>YES_ERROR</string>
+				<key>CLANG_WARN_SUSPICIOUS_MOVE</key>
+				<string>YES</string>
+				<key>CLANG_WARN_UNREACHABLE_CODE</key>
+				<string>YES</string>
 				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
 				<string>YES</string>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
@@ -908,8 +953,12 @@
 				<string>YES</string>
 				<key>ENABLE_NS_ASSERTIONS</key>
 				<string>NO</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
 				<key>GCC_C_LANGUAGE_STANDARD</key>
 				<string>gnu99</string>
+				<key>GCC_NO_COMMON_BLOCKS</key>
+				<string>YES</string>
 				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
 				<string>YES</string>
 				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
@@ -923,7 +972,7 @@
 				<key>GCC_WARN_UNUSED_VARIABLE</key>
 				<string>YES</string>
 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.1</string>
+				<string>8.0</string>
 				<key>SDKROOT</key>
 				<string>iphoneos</string>
 				<key>TARGETED_DEVICE_FAMILY</key>
@@ -967,7 +1016,7 @@
 				<key>INFOPLIST_FILE</key>
 				<string>FMDBHelper/FMDBHelper-Info.plist</string>
 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.0</string>
+				<string>8.0</string>
 				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
 				<string>org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}</string>
 				<key>PRODUCT_NAME</key>
@@ -999,7 +1048,7 @@
 				<key>INFOPLIST_FILE</key>
 				<string>FMDBHelper/FMDBHelper-Info.plist</string>
 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.0</string>
+				<string>8.0</string>
 				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
 				<string>org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}</string>
 				<key>PRODUCT_NAME</key>
@@ -1031,7 +1080,7 @@
 		<key>6003F5C3195388D20070C39A</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>E5FD9AF21E799A23790026BE</string>
+			<string>A96A61403B63A359045E7413</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>BUNDLE_LOADER</key>
@@ -1075,7 +1124,7 @@
 		<key>6003F5C4195388D20070C39A</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>02CC1F1DBDC7E6D10D0F61FB</string>
+			<string>A7AB9E4BD1983C0D09F7C05B</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>BUNDLE_LOADER</key>
@@ -1135,71 +1184,14 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>68DF53F0257F4CC7F3ECCB8B</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>E5FD9AF21E799A23790026BE</string>
-				<string>02CC1F1DBDC7E6D10D0F61FB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6BFDDB77EB7A23EEF2DCF5F3</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Check Pods Manifest.lock</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
-if [[ $? != 0 ]] ; then
-    cat &lt;&lt; EOM
-error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
-EOM
-    exit 1
-fi
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>9981F2A4E7155F14311B3FEF</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-Tests.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>BCC269AC30D97169145F6A72</key>
+		<key>76E56F089AA187E6B3E9473E</key>
 		<dict>
 			<key>fileRef</key>
-			<string>9981F2A4E7155F14311B3FEF</string>
+			<string>BD5CA7275C94B55620C94B21</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>DFD844A79C799FF36C46A9BF</key>
+		<key>7DE46BB8FAC90D065904A7C4</key>
 		<dict>
 			<key>buildActionMask</key>
 			<string>2147483647</string>
@@ -1223,7 +1215,22 @@ fi
 			<key>showEnvVarsInLog</key>
 			<string>0</string>
 		</dict>
-		<key>E5FD9AF21E799A23790026BE</key>
+		<key>A7AB9E4BD1983C0D09F7C05B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods-Tests.release.xcconfig</string>
+			<key>path</key>
+			<string>Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A96A61403B63A359045E7413</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -1237,6 +1244,19 @@ fi
 			<string>Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BD5CA7275C94B55620C94B21</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods-Tests.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
 		<key>F30B6EB31AF4A560004AEFE8</key>
 		<dict>

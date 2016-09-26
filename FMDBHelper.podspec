@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "FMDBHelper"
-  s.version          = "0.1.9"
+  s.version          = "0.2.0"
   s.summary          = "Easier to use FMDB, support ORM and JSON into the model class."
   s.homepage         = "http://lijingcheng.github.io/"
   s.license          = 'MIT'
@@ -22,5 +22,5 @@ Pod::Spec.new do |s|
     'FMDBHelper' => ['Pod/Assets/*.png']
   }
   s.platform     = :ios, "7.0"
-  s.dependency 'FMDB', '2.5'
+  s.dependency 'FMDB', '2.6.2'
 end

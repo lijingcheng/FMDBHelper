@@ -13,8 +13,7 @@
 
 static NSString *dbName = @"";
 
-+ (void)setDataBaseName:(NSString *)name
-{
++ (void)setDataBaseName:(NSString *)name {
     NSAssert(name, @"name cannot be nil!");
     
     dbName = name;
@@ -23,43 +22,37 @@ static NSString *dbName = @"";
         NSString *bundlePath = [[NSBundle mainBundle] pathForResource:dbName ofType:nil];
         if ([[NSFileManager defaultManager] fileExistsAtPath:bundlePath]) {
             [[NSFileManager defaultManager] copyItemAtPath:bundlePath toPath:[self dbPath] error:nil];
-        }
-        else {
+        } else {
             NSAssert(NO, @"%@ does not exist!", dbName);
         }
     }
 }
 
-+ (BOOL)createTable:(NSString *)sql
-{
++ (BOOL)createTable:(NSString *)sql {
     return [self executeUpdate:sql args:nil];
 }
 
 #pragma mark - insert
 
-+ (BOOL)insert:(NSString *)sql
-{
++ (BOOL)insert:(NSString *)sql {
     NSAssert(sql, @"sql cannot be nil!");
     
     return [self executeUpdate:sql args:nil];
 }
 
-+ (BOOL)insertObject:(NSObject *)obj
-{
++ (BOOL)insertObject:(NSObject *)obj {
     NSAssert(obj, @"obj cannot be nil!");
     
     return [self insert:[[obj class] tableName] keyValues:[obj keyValues]];
 }
 
-+ (BOOL)insert:(NSString *)table keyValues:(NSDictionary *)keyValues
-{
++ (BOOL)insert:(NSString *)table keyValues:(NSDictionary *)keyValues {
     NSAssert(table && keyValues, @"table or keyValues cannot be nil!");
     
     return [self insert:table keyValues:keyValues replace:YES];
 }
 
-+ (BOOL)insert:(NSString *)table keyValues:(NSDictionary *)keyValues replace:(BOOL)replace
-{
++ (BOOL)insert:(NSString *)table keyValues:(NSDictionary *)keyValues replace:(BOOL)replace {
     NSAssert(table && keyValues, @"table or keyValues cannot be nil!");
     
     NSMutableArray *columns = [NSMutableArray array];
@@ -81,30 +74,26 @@ static NSString *dbName = @"";
 
 #pragma mark - update
 
-+ (BOOL)update:(NSString *)sql
-{
++ (BOOL)update:(NSString *)sql {
     NSAssert(sql, @"sql cannot be nil!");
     
     return [self executeUpdate:sql args:nil];
 }
 
-+ (BOOL)updateObject:(NSObject *)obj
-{
++ (BOOL)updateObject:(NSObject *)obj {
     NSAssert(obj, @"obj cannot be nil!");
     
     return [self update:[[obj class] tableName] keyValues:[obj keyValues]];
 }
 
-+ (BOOL)update:(NSString *)table keyValues:(NSDictionary *)keyValues
-{
++ (BOOL)update:(NSString *)table keyValues:(NSDictionary *)keyValues {
     NSAssert(table && keyValues, @"table or keyValues cannot be nil!");
     NSAssert(keyValues[identifier], @"keyValues[@\"%@\"] cannot be nil!", identifier);
     
     return [self update:table keyValues:keyValues where:[NSString stringWithFormat:@"%@='%@'", identifier, keyValues[identifier]]];
 }
 
-+ (BOOL)update:(NSString *)table keyValues:(NSDictionary *)keyValues where:(NSString *)where
-{
++ (BOOL)update:(NSString *)table keyValues:(NSDictionary *)keyValues where:(NSString *)where {
     NSAssert(table && keyValues && where, @"table,keyValues,where can't be nil!");
     
     NSMutableArray *settings = [NSMutableArray array];
@@ -124,29 +113,25 @@ static NSString *dbName = @"";
 
 #pragma mark - remove
 
-+ (BOOL)remove:(NSString *)table
-{
++ (BOOL)remove:(NSString *)table {
     NSAssert(table, @"table cannot be nil!");
     
     return [self remove:table where:@"1=1"];
 }
 
-+ (BOOL)removeObject:(NSObject *)obj
-{
++ (BOOL)removeObject:(NSObject *)obj {
     NSAssert(obj, @"obj cannot be nil!");
     
     return [self removeById:obj.ID from:[[obj class] tableName]];
 }
 
-+ (BOOL)removeById:(NSString *)id_ from:(NSString *)table
-{
++ (BOOL)removeById:(NSString *)id_ from:(NSString *)table {
     NSAssert(id_ && table, @"id_ or table cannot be nil!");
     
     return [self remove:table where:[NSString stringWithFormat:@"%@='%@'", identifier, id_]];
 }
 
-+ (BOOL)remove:(NSString *)table where:(NSString *)where
-{
++ (BOOL)remove:(NSString *)table where:(NSString *)where {
     NSAssert(table && where, @"table or where cannot be nil!");
     
     NSString *sql = [[NSString alloc] initWithFormat:@"DELETE FROM %@ WHERE %@", table, where];
@@ -157,15 +142,13 @@ static NSString *dbName = @"";
 
 #pragma mark - query
 
-+ (NSMutableArray *)query:(NSString *)table
-{
++ (NSMutableArray *)query:(NSString *)table {
     NSAssert(table, @"table cannot be nil!");
     
     return [self query:table where:@"1=1", nil];
 }
 
-+ (NSDictionary *)queryById:(NSString *)id_ from:(NSString *)table
-{
++ (NSDictionary *)queryById:(NSString *)id_ from:(NSString *)table {
     NSAssert(id_ && table, @"id_ or table cannot be nil!");
     
     NSMutableArray *result = [self query:table where:[NSString stringWithFormat:@"%@=?", identifier], id_, nil];
@@ -173,8 +156,7 @@ static NSString *dbName = @"";
     return (result.count > 0) ? result.firstObject : nil;
 }
 
-+ (NSMutableArray *)query:(NSString *)table where:(NSString *)where, ...
-{
++ (NSMutableArray *)query:(NSString *)table where:(NSString *)where, ... {
     NSAssert(table && where, @"table or where cannot be nil!");
     
     NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:10];
@@ -200,15 +182,13 @@ static NSString *dbName = @"";
     return result;
 }
 
-+ (NSInteger)totalRowOfTable:(NSString *)table
-{
++ (NSInteger)totalRowOfTable:(NSString *)table {
     NSAssert(table, @"table cannot be nil!");
     
     return [self totalRowOfTable:table where:@"1=1"];
 }
 
-+ (NSInteger)totalRowOfTable:(NSString *)table where:(NSString *)where
-{
++ (NSInteger)totalRowOfTable:(NSString *)table where:(NSString *)where {
     NSAssert(table && where, @"table or where cannot be nil!");
     
     NSInteger totalRow = 0;
@@ -231,8 +211,7 @@ static NSString *dbName = @"";
 
 #pragma mark - batch
 
-+ (BOOL)executeBatch:(NSArray *)sqls useTransaction:(BOOL)useTransaction
-{
++ (BOOL)executeBatch:(NSArray *)sqls useTransaction:(BOOL)useTransaction {
     NSAssert(sqls, @"sqls cannot be nil!");
     
     __block BOOL success = YES;
@@ -249,8 +228,7 @@ static NSString *dbName = @"";
                 }
             }
         }];
-    }
-    else {
+    } else {
         [queue inDatabase:^(FMDatabase *db) {
             for (NSString *sql in sqls) {
                 [db executeUpdate:sql];
@@ -263,8 +241,7 @@ static NSString *dbName = @"";
 
 #pragma mark - private method
 
-+ (BOOL)executeUpdate:(NSString *)sql args:(NSArray *)args
-{
++ (BOOL)executeUpdate:(NSString *)sql args:(NSArray *)args {
     BOOL success = NO;
     
     FMDatabase *db = [FMDatabase databaseWithPath:[self dbPath]];
@@ -280,8 +257,7 @@ static NSString *dbName = @"";
     return success;
 }
 
-+ (NSString *)dbPath
-{
++ (NSString *)dbPath {
     NSAssert(dbName, @"dbName cannot be nil!");
     
     return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:dbName];

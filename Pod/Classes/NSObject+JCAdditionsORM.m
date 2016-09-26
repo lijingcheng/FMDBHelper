@@ -15,8 +15,7 @@ NSString * const identifier = @"id";
 
 static const void *IDKey;
 
-- (instancetype)initWithDictionary:(NSDictionary *)keyValues
-{
+- (instancetype)initWithDictionary:(NSDictionary *)keyValues {
     if (self = [self init]) {
         NSAssert(keyValues, @"keyValues cannot be nil!");
         NSAssert([keyValues isKindOfClass:[NSDictionary class]], @"keyValues must be kind of NSDictionary!");
@@ -64,8 +63,7 @@ static const void *IDKey;
                 }
                 
                 [dict setObject:value forKey:useKey];
-            }
-            else {
+            } else {
                 [dict setObject:[self jc_defaultValueForKey:useKey] forKey:key];
             }
         }];
@@ -76,25 +74,21 @@ static const void *IDKey;
     return self;
 }
 
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key
-{
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     //NSLog(@"%@, %@", key, value);
 }
 
-- (NSString *)ID
-{
+- (NSString *)ID {
     return objc_getAssociatedObject(self, &IDKey);
 }
 
-- (void)setID:(NSString *)ID
-{
+- (void)setID:(NSString *)ID {
     NSAssert(ID, @"ID cannot be nil!");
     
     objc_setAssociatedObject(self, &IDKey, ID, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (NSMutableDictionary *)keyValues
-{
+- (NSMutableDictionary *)keyValues {
     NSDictionary *objectPropertys = [self objectPropertys];
     NSDictionary *genericForArray = [self genericForArray];
     
@@ -122,8 +116,7 @@ static const void *IDKey;
             }
             
             [dict setObject:value forKey:key];
-        }
-        else {
+        } else {
             [dict setObject:[self jc_defaultValueForKey:key] forKey:key];
         }
     }];
@@ -131,30 +124,25 @@ static const void *IDKey;
     return dict;
 }
 
-- (NSDictionary *)objectPropertys
-{
+- (NSDictionary *)objectPropertys {
     return @{};
 }
 
-- (NSDictionary *)genericForArray
-{
+- (NSDictionary *)genericForArray {
     return @{};
 }
 
-- (NSDictionary *)mapping
-{
+- (NSDictionary *)mapping {
     return @{};
 }
 
-+ (NSString *)tableName
-{
++ (NSString *)tableName {
     return NSStringFromClass([self class]);
 }
 
 #pragma mark -
 
-- (id)jc_defaultValueForKey:(NSString *)key
-{
+- (id)jc_defaultValueForKey:(NSString *)key {
     id defaultValue = [NSNull null];
     
     objc_property_t property = class_getProperty([self class], key.UTF8String);
@@ -164,23 +152,17 @@ static const void *IDKey;
         
         if ([propertyType hasPrefix:@"T@\"NSString\""]) {
             defaultValue = @"";
-        }
-        else if ([propertyType hasPrefix:@"T@\"NSMutableString\""]) {
+        }  else if ([propertyType hasPrefix:@"T@\"NSMutableString\""]) {
             defaultValue = [NSMutableString string];
-        }
-        else if ([propertyType hasPrefix:@"T@\"NSDictionary\""]) {
+        } else if ([propertyType hasPrefix:@"T@\"NSDictionary\""]) {
             defaultValue = @{};
-        }
-        else if ([propertyType hasPrefix:@"T@\"NSMutableDictionary\""]) {
+        } else if ([propertyType hasPrefix:@"T@\"NSMutableDictionary\""]) {
             defaultValue = [NSMutableDictionary dictionary];
-        }
-        else if ([propertyType hasPrefix:@"T@\"NSArray\""]) {
+        } else if ([propertyType hasPrefix:@"T@\"NSArray\""]) {
             defaultValue = @[];
-        }
-        else if ([propertyType hasPrefix:@"T@\"NSMutableArray\""]) {
+        } else if ([propertyType hasPrefix:@"T@\"NSMutableArray\""]) {
             defaultValue = [NSMutableArray array];
-        }
-        else if ([propertyType hasPrefix:@"T@\"NSNumber\""]) {
+        } else if ([propertyType hasPrefix:@"T@\"NSNumber\""]) {
             defaultValue = [NSNumber numberWithInt:0];
         }
     }
@@ -189,8 +171,7 @@ static const void *IDKey;
 }
 
 
-- (BOOL)jc_isStringProperty:(NSString *)key
-{
+- (BOOL)jc_isStringProperty:(NSString *)key {
     BOOL isStringProperty = NO;
     
     objc_property_t property = class_getProperty(self.class, key.UTF8String);
@@ -200,8 +181,7 @@ static const void *IDKey;
         
         if ([propertyType respondsToSelector:@selector(containsString:)]) {
             isStringProperty = [propertyType containsString:@"String"];
-        }
-        else {
+        } else {
             isStringProperty = !NSEqualRanges([propertyType rangeOfString:@"String"], NSMakeRange(NSNotFound, 0));
         }
     }
@@ -209,8 +189,7 @@ static const void *IDKey;
     return isStringProperty;
 }
 
-- (NSMutableArray *)jc_propertys
-{
+- (NSMutableArray *)jc_propertys {
     NSMutableArray *allKeys = [[NSMutableArray alloc] initWithCapacity:10];
     [allKeys addObject:NSStringFromSelector(@selector(ID))];
     
@@ -226,8 +205,7 @@ static const void *IDKey;
     return allKeys;
 }
 
-- (BOOL)jc_isValid
-{
+- (BOOL)jc_isValid {
     return !(self == nil || [self isKindOfClass:[NSNull class]]);
 }
 

@@ -17,5 +17,6 @@
 @property (nonatomic, copy) NSString *birthday;
 @property (nonatomic, strong) Dept *dept;
 @property (nonatomic, copy) NSArray<Dog *> *dogs;
+@property (nonatomic, copy) NSArray<NSNumber *> *nums;
 
 @end
