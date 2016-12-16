@@ -55,7 +55,7 @@ static const void *IDKey;
                 if (genericForArray[useKey] && [value isKindOfClass:[NSArray class]]) {
                     NSMutableArray *ary = [NSMutableArray array];
                     
-                    [value enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [value enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                         [ary addObject:[[genericForArray[useKey] alloc] initWithDictionary:obj]];
                     }];
                     
@@ -152,7 +152,7 @@ static const void *IDKey;
         
         if ([propertyType hasPrefix:@"T@\"NSString\""]) {
             defaultValue = @"";
-        }  else if ([propertyType hasPrefix:@"T@\"NSMutableString\""]) {
+        } else if ([propertyType hasPrefix:@"T@\"NSMutableString\""]) {
             defaultValue = [NSMutableString string];
         } else if ([propertyType hasPrefix:@"T@\"NSDictionary\""]) {
             defaultValue = @{};
@@ -170,24 +170,18 @@ static const void *IDKey;
     return defaultValue;
 }
 
-
 - (BOOL)jc_isStringProperty:(NSString *)key {
-    BOOL isStringProperty = NO;
-    
     objc_property_t property = class_getProperty(self.class, key.UTF8String);
     
     if (property != NULL) {
         NSString *propertyType = [NSString stringWithCString:property_getAttributes(property) encoding:NSUTF8StringEncoding];
         
-        if ([propertyType respondsToSelector:@selector(containsString:)]) {
-            isStringProperty = [propertyType containsString:@"String"];
-        } else {
-            isStringProperty = !NSEqualRanges([propertyType rangeOfString:@"String"], NSMakeRange(NSNotFound, 0));
-        }
+        return [propertyType containsString:@"String"];
     }
     
-    return isStringProperty;
+    return NO;
 }
+
 
 - (NSMutableArray *)jc_propertys {
     NSMutableArray *allKeys = [[NSMutableArray alloc] initWithCapacity:10];
@@ -196,7 +190,7 @@ static const void *IDKey;
     unsigned int count;
     objc_property_t *properties = class_copyPropertyList([self class], &count);
     
-    for(int i = 0 ; i < count ; i++){
+    for (int i = 0; i < count; i++){
         [allKeys addObject:[NSString stringWithCString:property_getName(properties[i]) encoding:NSUTF8StringEncoding]];
     }
     
