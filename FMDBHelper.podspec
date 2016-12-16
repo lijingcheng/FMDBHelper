@@ -18,9 +18,6 @@ Pod::Spec.new do |s|
   s.social_media_url = 'http://weibo.com/lijingcheng1984'
   s.requires_arc = true
   s.source_files = 'Pod/Classes/**/*'
-  s.resource_bundles = {
-    'FMDBHelper' => ['Pod/Assets/*.png']
-  }
   s.platform     = :ios, "8.0"
   s.dependency 'FMDB', '2.6.2'
 end

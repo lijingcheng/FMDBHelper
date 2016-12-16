@@ -14,11 +14,6 @@
   "social_media_url": "http://weibo.com/lijingcheng1984",
   "requires_arc": true,
   "source_files": "Pod/Classes/**/*",
-  "resource_bundles": {
-    "FMDBHelper": [
-      "Pod/Assets/*.png"
-    ]
-  },
   "platforms": {
     "ios": "8.0"
   },
