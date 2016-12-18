@@ -42,7 +42,7 @@ or have a JSON like this:
 {
   "id": "a1b2c3d4e5",
   "username": "李京城",
-  "age": 31,
+  "age": 32,
   "birthday": "1984/3/28",
   "dept":{
     "id": "f6g7h8i9j0",
@@ -50,8 +50,20 @@ or have a JSON like this:
     "manager": "X"
   },
   "dogs":[
-    {"id": "0x0x0x0x","name": "ahuang","age": "15"},
-    {"id": "1x1x1x1x","name": "xhei","age": "6"}
+    {
+      "id": "0x0x0x0x",
+      "name": "ahuang",
+      "age": "15"
+    },
+    {
+      "id": "1x1x1x1x",
+      "name": "xhei",
+      "age": "6"
+    }
+  ],
+  "nums":[
+    123,
+    234
   ]
 }
 ```
