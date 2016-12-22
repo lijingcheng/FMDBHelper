@@ -20,7 +20,7 @@ Installation with Carthage
 ```
 github "lijingcheng/FMDBHelper" ~> 1.0.0
 ```
-need dependency FMDB(v2.6.2)
+Already included FMDB(v2.6.2)
 
 ## Performance
 

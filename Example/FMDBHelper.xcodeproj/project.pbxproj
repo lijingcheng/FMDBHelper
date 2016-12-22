@@ -37,6 +37,12 @@
 		F316C2F01E0BFD11006375AE /* demo.json in Resources */ = {isa = PBXBuildFile; fileRef = F316C2E01E0BF888006375AE /* demo.json */; };
 		F316C2F11E0BFEA5006375AE /* demo.db in Resources */ = {isa = PBXBuildFile; fileRef = F316C2DF1E0BF888006375AE /* demo.db */; };
 		F316C2F21E0BFEA5006375AE /* demo.json in Resources */ = {isa = PBXBuildFile; fileRef = F316C2E01E0BF888006375AE /* demo.json */; };
+		F316C2FB1E0C014F006375AE /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = F316C2F51E0C014F006375AE /* FMDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F316C2FC1E0C014F006375AE /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F316C2F61E0C014F006375AE /* FMDatabaseAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F316C2FD1E0C014F006375AE /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = F316C2F71E0C014F006375AE /* FMDatabasePool.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F316C2FE1E0C014F006375AE /* FMDatabaseQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = F316C2F81E0C014F006375AE /* FMDatabaseQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F316C2FF1E0C014F006375AE /* FMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = F316C2F91E0C014F006375AE /* FMDB.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F316C3001E0C014F006375AE /* FMResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = F316C2FA1E0C014F006375AE /* FMResultSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +124,12 @@
 		F316C2E61E0BFC2D006375AE /* FMDatabaseQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = ../Pods/FMDB/src/fmdb/FMDatabaseQueue.m; sourceTree = "<group>"; };
 		F316C2E71E0BFC2D006375AE /* FMResultSet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = ../Pods/FMDB/src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
 		F316C2ED1E0BFC54006375AE /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		F316C2F51E0C014F006375AE /* FMDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = ../Pods/FMDB/src/fmdb/FMDatabase.h; sourceTree = "<group>"; };
+		F316C2F61E0C014F006375AE /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = ../Pods/FMDB/src/fmdb/FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		F316C2F71E0C014F006375AE /* FMDatabasePool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = ../Pods/FMDB/src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
+		F316C2F81E0C014F006375AE /* FMDatabaseQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = ../Pods/FMDB/src/fmdb/FMDatabaseQueue.h; sourceTree = "<group>"; };
+		F316C2F91E0C014F006375AE /* FMDB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = ../Pods/FMDB/src/fmdb/FMDB.h; sourceTree = "<group>"; };
+		F316C2FA1E0C014F006375AE /* FMResultSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = ../Pods/FMDB/src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,11 +250,17 @@
 		F316C2561E0BD734006375AE /* FMDBHelper for Carthage */ = {
 			isa = PBXGroup;
 			children = (
+				F316C2F91E0C014F006375AE /* FMDB.h */,
+				F316C2F51E0C014F006375AE /* FMDatabase.h */,
 				F316C2E31E0BFC2D006375AE /* FMDatabase.m */,
-				F316C2E41E0BFC2D006375AE /* FMDatabaseAdditions.m */,
-				F316C2E51E0BFC2D006375AE /* FMDatabasePool.m */,
-				F316C2E61E0BFC2D006375AE /* FMDatabaseQueue.m */,
+				F316C2F61E0C014F006375AE /* FMDatabaseAdditions.h */,
 				F316C2E71E0BFC2D006375AE /* FMResultSet.m */,
+				F316C2E41E0BFC2D006375AE /* FMDatabaseAdditions.m */,
+				F316C2F71E0C014F006375AE /* FMDatabasePool.h */,
+				F316C2E51E0BFC2D006375AE /* FMDatabasePool.m */,
+				F316C2F81E0C014F006375AE /* FMDatabaseQueue.h */,
+				F316C2E61E0BFC2D006375AE /* FMDatabaseQueue.m */,
+				F316C2FA1E0C014F006375AE /* FMResultSet.h */,
 				F316C2681E0BD791006375AE /* FMDBHelper.h */,
 				F316C2641E0BD766006375AE /* FMDBHelper.m */,
 				F316C2691E0BD791006375AE /* NSObject+JCAdditionsORM.h */,
@@ -279,6 +297,12 @@
 			files = (
 				F316C26A1E0BD791006375AE /* FMDBHelper.h in Headers */,
 				F316C26B1E0BD791006375AE /* NSObject+JCAdditionsORM.h in Headers */,
+				F316C2FB1E0C014F006375AE /* FMDatabase.h in Headers */,
+				F316C2FC1E0C014F006375AE /* FMDatabaseAdditions.h in Headers */,
+				F316C2FD1E0C014F006375AE /* FMDatabasePool.h in Headers */,
+				F316C2FE1E0C014F006375AE /* FMDatabaseQueue.h in Headers */,
+				F316C2FF1E0C014F006375AE /* FMDB.h in Headers */,
+				F316C3001E0C014F006375AE /* FMResultSet.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,7 +374,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = X;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = lijingcheng;
 				TargetAttributes = {
 					F316C2541E0BD734006375AE = {
@@ -659,6 +683,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -674,7 +699,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ljc.FMDBHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Pods/FMDB/src/fmdb";
+				USER_HEADER_SEARCH_PATHS = "";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -686,6 +711,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -703,7 +729,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ljc.FMDBHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Pods/FMDB/src/fmdb";
+				USER_HEADER_SEARCH_PATHS = "";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};

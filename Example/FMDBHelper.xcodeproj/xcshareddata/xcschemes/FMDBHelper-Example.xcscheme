@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0800"
+   LastUpgradeVersion = "0820"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -42,7 +42,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F316C2BB1E0BF7B1006375AE"
+               BlueprintIdentifier = "F316C2C91E0BF80B006375AE"
                BuildableName = "FMDBHelper_Tests.xctest"
                BlueprintName = "FMDBHelper_Tests"
                ReferencedContainer = "container:FMDBHelper.xcodeproj">
