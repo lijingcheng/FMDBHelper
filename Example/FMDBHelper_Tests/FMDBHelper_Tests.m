@@ -1,11 +1,12 @@
 //
-//  FMDBHelperSpec.m
-//  FMDBHelper
+//  FMDBHelper_Tests.m
+//  FMDBHelper_Tests
 //
-//  Created by 李京城 on 15/3/23.
-//  Copyright (c) 2015年 李京城. All rights reserved.
+//  Created by 李京城 on 2016/12/22.
+//  Copyright © 2016年 lijingcheng. All rights reserved.
 //
 
+#import <Kiwi/Kiwi.h>
 #import "FMDBHelper.h"
 #import "User.h"
 #import "Dept.h"
@@ -13,7 +14,8 @@
 
 SPEC_BEGIN(FMDBHelperSpec)
 
-describe(@"FMDBHelper", ^{
+describe(@"FMDBHelper_Example", ^{
+    NSLog(@"\n\n🍀🍀🍀 The warnings in the console can be ignored, the actual use of lib will not exist. 🍀🍀🍀");
     
     [FMDBHelper setDataBaseName:@"demo.db"];
     
@@ -74,7 +76,7 @@ describe(@"FMDBHelper", ^{
         it(@"updateObject:", ^{
             NSDictionary *dict = @{@"id": @"a1b2c3d4e5", @"name": @"><((*>", @"age": @18};
             User *user = [[User alloc] initWithDictionary:dict];
-
+            
             BOOL result = [FMDBHelper updateObject:user];
             
             [[theValue(result) should] beYes];
@@ -92,11 +94,11 @@ describe(@"FMDBHelper", ^{
             [[theValue(result) should] beYes];
         });
     });
-
+    
     context(@"delete", ^{
         it(@"removeById:from:", ^{
             BOOL result = [FMDBHelper removeById:@"id2" from:tableName];
-
+            
             [[theValue(result) should] beYes];
         });
         
@@ -121,7 +123,7 @@ describe(@"FMDBHelper", ^{
             [[theValue(result) should] beYes];
         });
     });
-
+    
     context(@"batch", ^{
         NSString *sql1 = @"INSERT OR REPLACE INTO sys_user (id,name,age,birthday,dept) VALUES ('id1','lijingcheng',31,'1984/3/28','{\n  \"id\" : \"f6g7h8i9j0\",\n  \"name\" : \"dev\",\n  \"manager\" : \"X\"\n}')";
         NSString *sql2 = @"INSERT OR REPLACE INTO sys_user (id,name,age,birthday,dept) VALUES ('id2','zhangsan',21,'1994/3/22','')";
@@ -142,7 +144,7 @@ describe(@"FMDBHelper", ^{
             [[theValue(result) should] beYes];
         });
     });
-
+    
     context(@"query", ^{
         it(@"query:", ^{
             NSArray *result = [FMDBHelper query:tableName];
@@ -152,7 +154,7 @@ describe(@"FMDBHelper", ^{
         
         it(@"query:where:", ^{
             NSArray *result = [FMDBHelper query:tableName where:@"age>?", @20, nil];
-
+            
             [[result should] haveCountOf:2];
         });
         

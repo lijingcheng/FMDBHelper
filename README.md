@@ -1,6 +1,7 @@
 
 [![CI Status](http://img.shields.io/travis/lijingcheng/FMDBHelper.svg?style=flat)](https://travis-ci.org/lijingcheng/FMDBHelper)
 [![Version](https://img.shields.io/cocoapods/v/FMDBHelper.svg?style=flat)](http://cocoadocs.org/docsets/FMDBHelper)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/cocoapods/l/FMDBHelper.svg?style=flat)](http://cocoadocs.org/docsets/FMDBHelper)
 [![Platform](https://img.shields.io/cocoapods/p/FMDBHelper.svg?style=flat)](http://cocoadocs.org/docsets/FMDBHelper)
 
@@ -8,7 +9,18 @@
 
 ## Installation
 
-pod "FMDBHelper"
+Installation with CocoaPods
+
+```
+pod "FMDBHelper", "1.0.0"
+```
+
+Installation with Carthage
+
+```
+github "lijingcheng/FMDBHelper" ~> 1.0.0
+```
+need dependency FMDB(v2.6.2)
 
 ## Performance
 

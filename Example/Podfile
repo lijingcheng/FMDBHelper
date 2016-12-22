@@ -2,7 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, "8.0"
 
-target 'Tests' do
+target 'FMDBHelper_Tests' do
   pod "FMDB", "2.6.2"
   pod "FMDBHelper", :path => "../"
 
