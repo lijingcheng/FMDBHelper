@@ -35,7 +35,7 @@ extern NSString * const identifier;
 - (NSDictionary *)objectPropertys;
 
 /*
- *  If the property type is a NSArray<...>, you need to overwrite this method.
+ *  If the property type is a NSArray<...>, and property type is a custom class, you need to overwrite this method.
  *
  *  @return key is property name, value is generic, default return @{};
  */

@@ -18,7 +18,7 @@ pod "FMDBHelper", "1.0.0"
 Installation with Carthage
 
 ```
-github "lijingcheng/FMDBHelper" ~> 1.0.0
+github "lijingcheng/FMDBHelper" == 1.0.0
 ```
 Already included FMDB(v2.6.2)
 
@@ -107,7 +107,7 @@ Create a model class and declare properties, property name must be consistent wi
     return @{@"dept": [Dept class]};
 }
 
-// if the property type is a NSArray<...>, you need to overwrite this method.
+// If the property type is a NSArray<...>, and property type is a custom class, you need to overwrite this method.
 - (NSDictionary *)genericForArray {
     return @{@"dogs": [Dog class]};
 }
