@@ -32,6 +32,12 @@ static NSString *dbName = @"";
     return [self executeUpdate:sql args:nil];
 }
 
++ (BOOL)dropTable:(NSString *)tableName {
+    NSString *sql = [NSString stringWithFormat:@"DROP TABLE IF EXISTS %@", tableName];
+    
+    return [self executeUpdate:sql args:nil];
+}
+
 #pragma mark - insert
 
 + (BOOL)insert:(NSString *)sql {
@@ -67,7 +73,7 @@ static NSString *dbName = @"";
         }
     }];
     
-    NSString *sql = [[NSString alloc] initWithFormat:@"INSERT%@ INTO %@ (%@) VALUES (%@)", replace?@" OR REPLACE":@"", table, [columns componentsJoinedByString:@","], [placeholder componentsJoinedByString:@","]];
+    NSString *sql = [[NSString alloc] initWithFormat:@"INSERT%@ INTO %@ (%@) VALUES (%@)", replace ? @" OR REPLACE" : @"", table, [columns componentsJoinedByString:@","], [placeholder componentsJoinedByString:@","]];
     
     return [self executeUpdate:sql args:values];
 }
@@ -260,7 +266,7 @@ static NSString *dbName = @"";
 + (NSString *)dbPath {
     NSAssert(dbName, @"dbName cannot be nil!");
     
-    return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:dbName];
+    return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:dbName];
 }
 
 @end

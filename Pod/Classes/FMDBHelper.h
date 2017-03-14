@@ -22,6 +22,11 @@
 + (BOOL)createTable:(NSString *)sql;
 
 /**
+ *  Drop table use tableName
+ */
++ (BOOL)dropTable:(NSString *)tableName;
+
+/**
  *  Use @sql insert
  */
 + (BOOL)insert:(NSString *)sql;
