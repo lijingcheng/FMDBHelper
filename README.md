@@ -12,13 +12,13 @@
 Installation with CocoaPods
 
 ```
-pod "FMDBHelper", "1.0.1"
+pod "FMDBHelper", "1.0.2"
 ```
 
 Installation with Carthage
 
 ```
-github "lijingcheng/FMDBHelper" == 1.0.1
+github "lijingcheng/FMDBHelper" == 1.0.2
 ```
 Already included FMDB(v2.6.2)
 

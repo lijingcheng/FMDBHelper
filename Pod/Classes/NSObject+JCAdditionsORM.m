@@ -20,7 +20,7 @@ static const void *IDKey;
         NSAssert(keyValues, @"keyValues cannot be nil!");
         NSAssert([keyValues isKindOfClass:[NSDictionary class]], @"keyValues must be kind of NSDictionary!");
         
-        NSDictionary *objectPropertys = [self objectPropertys];
+        NSDictionary *objectPropertys = [self allObjectPropertys];
         NSDictionary *genericForArray = [self genericForArray];
         NSDictionary *mapping = [self mapping];
         
@@ -89,7 +89,7 @@ static const void *IDKey;
 }
 
 - (NSMutableDictionary *)keyValues {
-    NSDictionary *objectPropertys = [self objectPropertys];
+    NSDictionary *objectPropertys = [self allObjectPropertys];
     NSDictionary *genericForArray = [self genericForArray];
     
     NSDictionary *keyValues = [self dictionaryWithValuesForKeys:self.jc_propertys];
@@ -138,6 +138,18 @@ static const void *IDKey;
 
 + (NSString *)tableName {
     return NSStringFromClass([self class]);
+}
+
+- (NSDictionary *)allObjectPropertys {
+    NSMutableDictionary *objectPropertys = [[NSMutableDictionary alloc] init];
+    
+    id temp = self;
+    
+    do {
+        [objectPropertys addEntriesFromDictionary:[temp objectPropertys]];
+    } while ((temp = [temp superclass]));
+    
+    return objectPropertys;
 }
 
 #pragma mark -
