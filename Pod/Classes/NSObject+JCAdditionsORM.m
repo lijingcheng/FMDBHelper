@@ -117,7 +117,9 @@ static const void *IDKey;
             
             [dict setObject:value forKey:key];
         } else {
-            [dict setObject:[self jc_defaultValueForKey:key] forKey:key];
+            if (![key isEqualToString:NSStringFromSelector(@selector(ID))]) {
+                [dict setObject:[self jc_defaultValueForKey:key] forKey:key];
+            }
         }
     }];
     
