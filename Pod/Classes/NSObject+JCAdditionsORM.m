@@ -177,7 +177,15 @@ static const void *IDKey;
         } else if ([propertyType hasPrefix:@"T@\"NSMutableArray\""]) {
             defaultValue = [NSMutableArray array];
         } else if ([propertyType hasPrefix:@"T@\"NSNumber\""]) {
-            defaultValue = [NSNumber numberWithInt:0];
+            defaultValue = @0;
+        } else if ([propertyType hasPrefix:@"TB"]) { // BOOL
+            defaultValue = @0;
+        } else if ([propertyType hasPrefix:@"Tc"]) { // char
+            defaultValue = @0;
+        } else if ([propertyType hasPrefix:@"Tq"] || [propertyType hasPrefix:@"Ti"]) { // NSInteger int long
+            defaultValue = @0;
+        } else if ([propertyType hasPrefix:@"Td"] || [propertyType hasPrefix:@"Tf"]) { // float double CGFloat
+            defaultValue = @0;
         }
     }
     
