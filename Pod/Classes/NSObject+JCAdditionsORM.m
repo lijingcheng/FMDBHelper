@@ -68,7 +68,7 @@ static const void *IDKey;
             }
         }];
         
-        [self setValuesForKeysWithDictionary:dict];
+        @try { [self setValuesForKeysWithDictionary:dict]; } @catch (NSException *exception) {}
     }
     
     return self;
