@@ -1,6 +1,6 @@
 {
   "name": "FMDBHelper",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "summary": "Easier to use FMDB, support ORM and JSON into the model class.",
   "homepage": "http://lijingcheng.github.io/",
   "license": "MIT",
@@ -9,17 +9,16 @@
   },
   "source": {
     "git": "https://github.com/lijingcheng/FMDBHelper.git",
-    "tag": "1.0.0"
+    "tag": "1.1.0"
   },
   "social_media_url": "http://weibo.com/lijingcheng1984",
-  "requires_arc": true,
-  "source_files": "Pod/Classes/**/*",
+  "source_files": "FMDBHelper/Classes/*.{h,m}",
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.0"
   },
   "dependencies": {
     "FMDB": [
-      "2.6.2"
+      "2.7.5"
     ]
   }
 }

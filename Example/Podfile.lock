@@ -1,25 +1,29 @@
 PODS:
-  - FMDB (2.6.2):
-    - FMDB/standard (= 2.6.2)
-  - FMDB/standard (2.6.2)
-  - FMDBHelper (1.0.0):
-    - FMDB (= 2.6.2)
-  - Kiwi (2.4.0)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - FMDBHelper (1.1.0):
+    - FMDB (= 2.7.5)
+  - Kiwi (3.0.0)
 
 DEPENDENCIES:
-  - FMDB (= 2.6.2)
   - FMDBHelper (from `../`)
-  - Kiwi (= 2.4.0)
+  - Kiwi (= 3.0.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - FMDB
+    - Kiwi
 
 EXTERNAL SOURCES:
   FMDBHelper:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
-  FMDBHelper: 92d8e93f6f787477ae6b014bfac447e917a9355f
-  Kiwi: f49c9d54b28917df5928fe44968a39ed198cb8a8
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  FMDBHelper: 6fb8cf752838b308876ef989603e48442ecd4c37
+  Kiwi: fbeafef0f00e4d8f7dcb3420a4930afe70af77f7
 
-PODFILE CHECKSUM: 2fb07f775b90522bfba9d06c026e460a3e0ca86b
+PODFILE CHECKSUM: 6f6a1127fb3749b24238e061a948978f12a6e8c3
 
-COCOAPODS: 1.2.0.beta.1
+COCOAPODS: 1.5.3
