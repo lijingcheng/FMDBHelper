@@ -1,6 +1,6 @@
 # FMDBHelper
 
-[![Stars](https://img.shields.io/redmine/plugin/stars/redmine_xlsx_format_issue_exporter.svg)]((https://cocoapods.org/pods/FMDBHelper)
+[![Stars](https://img.shields.io/redmine/plugin/stars/redmine_xlsx_format_issue_exporter.svg)](https://cocoapods.org/pods/FMDBHelper)
 [![Version](https://img.shields.io/cocoapods/v/FMDBHelper.svg?style=flat)](https://cocoapods.org/pods/FMDBHelper)
 [![License](https://img.shields.io/cocoapods/l/FMDBHelper.svg?style=flat)](https://cocoapods.org/pods/FMDBHelper)
 [![Platform](https://img.shields.io/cocoapods/p/FMDBHelper.svg?style=flat)](https://cocoapods.org/pods/FMDBHelper)
