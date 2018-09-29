@@ -38,7 +38,8 @@ name text,
 age integer,
 birthday text,
 dept text,
-dogs text
+dogs text,
+nums text
 )
 
 ```
