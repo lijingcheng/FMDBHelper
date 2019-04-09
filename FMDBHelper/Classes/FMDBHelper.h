@@ -42,6 +42,13 @@
 + (BOOL)insertObject:(NSObject *)obj;
 
 /**
+ *  Use @obj insert
+ *
+ * @param column     use column as auto increment key
+ */
++ (BOOL)insertObjec:(NSObject *)obj usingAutoIncrementColumn:(NSString * _Nonnull)column;
+
+/**
  *  Insert or replace @keyValues into @table
  */
 + (BOOL)insert:(NSString *)table keyValues:(NSDictionary *)keyValues;
@@ -52,6 +59,14 @@
  *  @param replace    if have is the same record, whether you need to replace
  */
 + (BOOL)insert:(NSString *)table keyValues:(NSDictionary *)keyValues replace:(BOOL)replace;
+
+/**
+ *  Insert @keyValues into @table
+ *
+ *  @param replace    if have is the same record, whether you need to replace
+ *  @param column     use column as auto increment key
+ */
++ (BOOL)insert:(NSString *)table keyValues:(NSDictionary *)keyValues replace:(BOOL)replace usingAutoIncrementColumn:(NSString * _Nonnull)column;
 
 /**
  *  Use @sql Update
