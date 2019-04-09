@@ -51,7 +51,7 @@ static NSString *dbPath = @"";
     return [self insert:[[obj class] tableName] keyValues:[obj keyValues]];
 }
 
-+ (BOOL)insertObjec:(NSObject *)obj usingAutoIncrementColumn:(NSString * _Nonnull)column {
++ (BOOL)insertObject:(NSObject *)obj usingAutoIncrementColumn:(NSString * _Nonnull)column {
     NSAssert(obj && column, @"obj or column cannot be nil!");
     
     return [self insert:[[obj class] tableName] keyValues:[obj keyValues] replace:NO usingAutoIncrementColumn:column];

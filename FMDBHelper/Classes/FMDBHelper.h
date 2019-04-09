@@ -46,7 +46,7 @@
  *
  * @param column     use column as auto increment key
  */
-+ (BOOL)insertObjec:(NSObject *)obj usingAutoIncrementColumn:(NSString * _Nonnull)column;
++ (BOOL)insertObject:(NSObject *)obj usingAutoIncrementColumn:(NSString * _Nonnull)column;
 
 /**
  *  Insert or replace @keyValues into @table
