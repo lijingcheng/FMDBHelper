@@ -51,6 +51,12 @@ static NSString *dbPath = @"";
     return [self insert:[[obj class] tableName] keyValues:[obj keyValues]];
 }
 
++ (BOOL)insertObject:(NSObject *)obj usingAutoIncrementColumn:(NSString * _Nonnull)column {
+    NSAssert(obj && column, @"obj or column cannot be nil!");
+    
+    return [self insert:[[obj class] tableName] keyValues:[obj keyValues] replace:NO usingAutoIncrementColumn:column];
+}
+
 + (BOOL)insert:(NSString *)table keyValues:(NSDictionary *)keyValues {
     NSAssert(table && keyValues, @"table or keyValues cannot be nil!");
     
@@ -66,6 +72,30 @@ static NSString *dbPath = @"";
     
     [keyValues enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if (obj && ![obj isEqual:[NSNull null]]) {
+            [columns addObject:key];
+            [values addObject:obj];
+            [placeholder addObject:@"?"];
+        }
+    }];
+    
+    NSString *sql = [[NSString alloc] initWithFormat:@"INSERT%@ INTO %@ (%@) VALUES (%@)", replace ? @" OR REPLACE" : @"", table, [columns componentsJoinedByString:@","], [placeholder componentsJoinedByString:@","]];
+    
+    return [self executeUpdate:sql args:values];
+}
+
++ (BOOL)insert:(NSString *)table keyValues:(NSDictionary *)keyValues replace:(BOOL)replace usingAutoIncrementColumn:(NSString * _Nonnull)column {
+    NSAssert(table && keyValues, @"table or keyValues cannot be nil!");
+    NSAssert(column, @"column cannot be nil when using auto increment key!");
+
+    NSMutableArray *columns = [NSMutableArray array];
+    NSMutableArray *values = [NSMutableArray array];
+    NSMutableArray *placeholder = [NSMutableArray array];
+    
+    [keyValues enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if (obj && ![obj isEqual:[NSNull null]]) {
+            if ([key isEqualToString:column]) {
+                return;
+            }
             [columns addObject:key];
             [values addObject:obj];
             [placeholder addObject:@"?"];
